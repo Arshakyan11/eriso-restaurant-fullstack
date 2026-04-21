@@ -1,0 +1,728 @@
+@use "../../global/global.scss" as *;
+.homeSection {
+  .container {
+    max-width: 1440px;
+    margin: auto;
+    .homeBox {
+      display: flex;
+      flex-direction: column;
+      .welcomeSec {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 50px;
+        margin-top: 70px;
+        padding: 30px;
+        background: rgba(63, 198, 110, 0.1);
+        .welcomeText {
+          @include textStyleSome();
+        }
+        a {
+          @include btnStylesAndHover();
+          padding: 10px 30px;
+          padding-left: 10px;
+          max-width: 300px;
+          width: 100%;
+          text-align: center;
+        }
+        .leftSide {
+          a,
+          .welcomeText {
+            display: none;
+          }
+          img {
+            width: 500px;
+          }
+        }
+        .rightSide {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          padding-top: 20px;
+          .welcome {
+            font-size: 60px;
+            font-weight: bold;
+            span {
+              color: orange;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      .reservationSec {
+        display: flex;
+        justify-content: space-evenly;
+        background: rgba(255, 244, 231, 0.6);
+        padding: 50px 10px;
+        gap: 50px;
+        p {
+          @include textStyleSome();
+          line-height: 40px;
+        }
+        a {
+          @include btnStylesAndHover();
+          padding: 10px 40px;
+          max-width: 200px;
+        }
+        .leftSideReserve {
+          p,
+          a {
+            display: none;
+          }
+          .images {
+            position: relative;
+            .mainImg {
+              width: 500px;
+            }
+            .secondaryImg,
+            .secondaryImg2 {
+              position: absolute;
+              width: 100px;
+            }
+            .secondaryImg {
+              right: 8%;
+              top: 2%;
+            }
+            .secondaryImg2 {
+              bottom: 0;
+              left: 0;
+            }
+          }
+        }
+        .rightSideReserve {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          h2 {
+            font-size: 60px;
+            font-weight: bold;
+            span {
+              color: orange;
+              font-weight: 100;
+            }
+          }
+        }
+      }
+      .chiefSection {
+        @include disFx();
+        padding: 50px 0;
+        flex-direction: column;
+        gap: 50px;
+        .mainTitle {
+          font-size: 50px;
+        }
+        .chiefsBox {
+          display: flex;
+          gap: 30px;
+          .eachChief {
+            @include disFx();
+            flex-direction: column;
+            img {
+              width: 300px;
+              border-radius: 50px;
+              transition: all 0.5s;
+              &:hover {
+                transform: scale(1.1);
+              }
+            }
+            h2 {
+              color: #311f09;
+              margin-top: 10px;
+            }
+            h3 {
+              color: #a08d76;
+              font-size: 26px;
+            }
+            &:nth-child(1) {
+              img {
+                background: rgba(128, 128, 128, 0.5);
+              }
+            }
+            &:nth-child(2) {
+              img {
+                background: rgba(245, 222, 179, 0.5);
+              }
+            }
+            &:nth-child(3) {
+              img {
+                background: rgba(201, 182, 147, 0.5);
+              }
+            }
+          }
+        }
+        a {
+          @include btnStylesAndHover();
+          padding: 10px 40px;
+          font-size: 25px;
+        }
+      }
+      .workingTimeAll {
+        background: rgba(63, 198, 110, 0.1);
+        padding: 50px 40px;
+        .workingDays {
+          background: url("../../../public/img/restaurantPhoto.png");
+          background-repeat: no-repeat;
+          background-size: cover;
+          max-width: 1100px;
+          width: 100%;
+          margin: 50px auto;
+          @include disFx();
+          justify-content: flex-start;
+          padding: 20px;
+          flex-direction: column;
+          border: 3px solid black;
+          height: 500px;
+          flex-direction: column;
+          border-radius: 60px;
+          color: white;
+          h2 {
+            font-size: 70px;
+          }
+          h3 {
+            font-size: 50px;
+          }
+          p {
+            font-size: 30px;
+          }
+          .buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            a {
+              padding: 10px 40px;
+              margin-top: 50px;
+            }
+            & a:first-child {
+              @include btnStylesAndHover();
+              transition: all 0.8s;
+            }
+            & a:nth-child(2) {
+              @include btnStylesAndHover();
+              transition: all 0.8s;
+              font-size: 22px;
+              border-radius: 60px;
+              border: 1px solid transparent;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1212px) {
+        .reservationSec {
+          .leftSideReserve {
+            .images {
+              .mainImg {
+                width: 400px;
+              }
+              .secondaryImg {
+                right: 0%;
+              }
+            }
+          }
+          .rightSideReserve {
+            h2 {
+              font-size: 50px;
+            }
+            p {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1140px) {
+        & {
+          .welcomeSec {
+            .rightSide {
+              .welcome {
+                font-size: 50px;
+              }
+              .welcomeText {
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1065px) {
+        .reservationSec {
+          align-items: center;
+          .leftSideReserve {
+            .images {
+              .mainImg {
+                width: 350px;
+              }
+              .secondaryImg {
+                right: -6%;
+                top: -4%;
+              }
+              .secondaryImg2 {
+                bottom: -19%;
+                left: 0;
+              }
+            }
+          }
+          .rightSideReserve {
+            h2 {
+              font-size: 40px;
+            }
+            p {
+              font-size: 19px;
+              word-spacing: 1px;
+              max-width: 400px;
+            }
+          }
+        }
+        .chiefSection {
+          .mainTitle {
+            font-size: 45px;
+          }
+          .chiefsBox {
+            .eachChief {
+              img {
+                width: 250px;
+              }
+            }
+          }
+        }
+        .workingTimeAll {
+          .workingDays {
+            h2 {
+              font-size: 60px;
+            }
+            h3 {
+              font-size: 40px;
+            }
+            p {
+              font-size: 30px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1024px) {
+        & {
+          .welcomeSec {
+            .leftSide {
+              img {
+                width: 400px;
+              }
+            }
+            .rightSide {
+              .welcome {
+                font-size: 40px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 915px) {
+        & {
+          .welcomeSec {
+            align-items: center;
+            .leftSide {
+              img {
+                width: 400px;
+                margin-top: 20px;
+              }
+            }
+            .rightSide {
+              .welcome {
+                font-size: 38px;
+              }
+            }
+          }
+          .reservationSec {
+            .leftSideReserve {
+              .images {
+                .mainImg {
+                  width: 300px;
+                }
+              }
+            }
+            .rightSideReserve {
+              h2 {
+                font-size: 35px;
+              }
+              p {
+                line-height: 30px;
+              }
+            }
+          }
+          .workingTimeAll {
+            .workingDays {
+              gap: 30px;
+              h2 {
+                font-size: 50px;
+              }
+              h3 {
+                font-size: 35px;
+              }
+              p {
+                font-size: 30px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 845px) {
+        & {
+          .welcomeSec {
+            gap: 20px;
+            .leftSide {
+              img {
+                width: 350px;
+              }
+            }
+            .rightSide {
+              .welcome {
+                font-size: 35px;
+              }
+              .welcomeText {
+                font-size: 18px;
+              }
+            }
+          }
+          .reservationSec {
+            flex-direction: column;
+            .leftSideReserve {
+              display: flex;
+              flex-direction: column;
+              gap: 40px;
+              align-items: center;
+              .images {
+                .mainImg {
+                  width: 300px;
+                }
+                .secondaryImg {
+                  right: -19%;
+                  top: -10%;
+                }
+                .secondaryImg2 {
+                  bottom: -10%;
+                  left: -24%;
+                }
+              }
+              a,
+              p {
+                display: block;
+              }
+              p {
+                font-size: 20px;
+              }
+            }
+            .rightSideReserve {
+              order: -1;
+              a,
+              p {
+                display: none;
+              }
+              .br {
+                display: none;
+              }
+              h2 {
+                font-size: 35px;
+                span {
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+          .chiefSection {
+            padding: 20px;
+            .mainTitle {
+              font-size: 40px;
+            }
+            .chiefsBox {
+              .eachChief {
+                img {
+                  width: 200px;
+                }
+                h2 {
+                  font-size: 22px;
+                }
+                h3 {
+                  font-size: 22px;
+                }
+              }
+            }
+            a {
+              font-size: 22px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 743px) {
+        & {
+          .welcomeSec {
+            flex-direction: column;
+            gap: 20px;
+            .leftSide {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+              align-items: center;
+              a,
+              .welcomeText {
+                display: block;
+                text-align: center;
+              }
+              img {
+                width: 350px;
+              }
+            }
+            .rightSide {
+              a,
+              .welcomeText {
+                display: none;
+              }
+              order: -1;
+              .welcome {
+                font-size: 35px;
+                .br {
+                  display: none;
+                }
+              }
+            }
+          }
+          .chiefSection {
+            .mainTitle {
+              font-size: 35px;
+            }
+            .chiefsBox {
+              gap: 15px;
+              .eachChief {
+                img {
+                  width: 180px;
+                }
+                h2 {
+                  font-size: 20px;
+                }
+                h3 {
+                  font-size: 20px;
+                }
+              }
+            }
+          }
+          .workingTimeAll {
+            .workingDays {
+              justify-content: center;
+              gap: 30px;
+              h2 {
+                font-size: 40px;
+              }
+              h3 {
+                font-size: 32px;
+              }
+              p {
+                font-size: 25px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 680px) {
+        .reservationSec {
+          align-items: center;
+          padding: 50px 25px;
+        }
+      }
+      @media screen and (max-width: 640px) {
+        .chiefSection {
+          .chiefsBox {
+            padding: 0 5px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            .eachChief {
+              img {
+                width: 180px;
+              }
+              h2 {
+                font-size: 20px;
+              }
+              h3 {
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 580px) {
+        .reservationSec {
+          align-items: center;
+          padding: 50px 25px;
+          .leftSideReserve {
+            .images {
+              .mainImg {
+                width: 250px;
+              }
+              .secondaryImg,
+              .secondaryImg2 {
+                width: 75px;
+              }
+            }
+            p {
+              font-size: 18px;
+              text-align: center;
+            }
+          }
+        }
+        .workingTimeAll {
+          .workingDays {
+            h2 {
+              font-size: 36px;
+            }
+            h3 {
+              font-size: 28px;
+            }
+            p {
+              font-size: 22px;
+              text-align: center;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 490px) {
+        .workingTimeAll {
+          .workingDays {
+            h2 {
+              font-size: 36px;
+              text-align: center;
+            }
+            .buttons {
+              flex-direction: column;
+              max-width: 400px;
+              width: 100%;
+              a {
+                max-width: 300px;
+                width: 100%;
+                text-align: center;
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 470px) {
+        .chiefSection {
+          .chiefsBox {
+            gap: 25px;
+            .eachChief {
+              img {
+                width: 150px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 434px) {
+        & {
+          .welcomeSec {
+            .leftSide {
+              img {
+                width: 300px;
+              }
+              .welcomeText {
+                font-size: 20px;
+              }
+            }
+            .rightSide {
+              .welcome {
+                font-size: 34px;
+              }
+            }
+          }
+          .reservationSec {
+            .leftSideReserve {
+              .images {
+                .mainImg {
+                  width: 230px;
+                }
+              }
+              p {
+                font-size: 18px;
+                line-height: 25px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 395px) {
+        & {
+          .welcomeSec {
+            .leftSide {
+              img {
+                width: 250px;
+              }
+              .welcomeText {
+                font-size: 19px;
+              }
+            }
+            .rightSide {
+              .welcome {
+                text-align: center;
+              }
+            }
+          }
+          .reservationSec {
+            .rightSideReserve {
+              h2 {
+                font-size: 30px;
+              }
+            }
+            .leftSideReserve {
+              .images {
+                .mainImg {
+                  width: 200px;
+                }
+                .secondaryImg,
+                .secondaryImg2 {
+                  width: 65px;
+                }
+                .secondaryImg {
+                  right: -10%;
+                  top: -10%;
+                }
+                .secondaryImg2 {
+                  bottom: -15%;
+                  left: -10%;
+                }
+              }
+            }
+          }
+          .chiefSection {
+            .chiefsBox {
+              .eachChief {
+                img {
+                  width: 180px;
+                  &:hover {
+                    transform: scale(1.05);
+                  }
+                }
+              }
+            }
+          }
+          .workingTimeAll {
+            .workingDays {
+              h2 {
+                font-size: 32px;
+              }
+              h3 {
+                font-size: 24px;
+              }
+              p {
+                font-size: 19px;
+              }
+              .buttons {
+                a {
+                  max-width: 170px;
+                  width: 100%;
+                  text-align: center;
+                  margin-top: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

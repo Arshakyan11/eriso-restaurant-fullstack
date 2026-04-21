@@ -1,0 +1,278 @@
+.allItems {
+  .buyingList {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: orange;
+    cursor: pointer;
+    position: fixed;
+    right: max(calc((100vw - 1440px) / 2 + 20px), 20px);
+    bottom: 5%;
+    padding: 15px;
+    svg {
+      color: white;
+      font-size: 30px;
+    }
+  }
+  .modalContainer {
+    max-width: 420px;
+    width: 100%;
+    position: fixed;
+    right: max(calc((100vw - 1440px) / 2 + 20px), 20px);
+    bottom: 15%;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    z-index: 100;
+    animation: slideUp 1s ease;
+    .modal {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 375px;
+      width: 100%;
+      .selectedItems {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-height: 440px;
+        overflow-y: auto;
+        padding-right: 5px;
+        .eachItem {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 15px;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          backdrop-filter: blur(10px);
+          img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+          }
+          .infoOfItem {
+            flex: 1;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            p {
+              margin: 0;
+            }
+            .buttons {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              p {
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: #fff;
+                color: #333;
+                cursor: pointer;
+                transition: 0.3s;
+                &:hover {
+                  background: #333;
+                  color: #fff;
+                }
+              }
+              p:nth-child(2) {
+                background: #ff4d4f;
+                color: white;
+              }
+              p:nth-child(3) {
+                background: #4caf50;
+                color: white;
+              }
+            }
+          }
+        }
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+        &::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.6);
+          border-radius: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.5);
+          border-radius: 8px;
+          border: 2px solid transparent;
+          background-clip: content-box;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.8);
+        }
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+      }
+      h2 {
+        color: #fff;
+        align-self: center;
+        font-weight: normal;
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        button {
+          background: #fff;
+          color: #ff7e5f;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 8px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 1s;
+          &:hover {
+            background: #333;
+            color: #fff;
+          }
+        }
+      }
+      .totalCount {
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        color: white;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding-top: 10px;
+      }
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .modalContainer {
+      max-width: 360px;
+      .modal {
+        max-width: 320px;
+        .selectedItems {
+          .eachItem {
+            align-items: unset;
+            img {
+              height: auto;
+            }
+            .infoOfItem {
+              .buttons {
+                p {
+                  width: 29px;
+                  height: 29px;
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 725px) {
+    .buyingList {
+      right: max(calc((100vw - 1440px) / 2 + 20px), 30px);
+    }
+    .modalContainer {
+      .modal {
+        .selectedItems {
+          max-height: 290px;
+          .eachItem {
+            .infoOfItem {
+              .buttons {
+                p {
+                  width: 26px;
+                  height: 26px;
+                  font-size: 15px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 540px) {
+    .buyingList {
+      width: 55px;
+      height: 55px;
+      padding: 15px;
+      svg {
+        font-size: 25px;
+      }
+    }
+    .modalContainer {
+      max-width: 300px;
+      .modal {
+        .selectedItems {
+          max-height: 270px;
+          .eachItem {
+            gap: 10px;
+            .infoOfItem {
+              p:first-child {
+                font-size: 14px;
+              }
+              .buttons {
+                justify-content: flex-start;
+                gap: 6px;
+                p {
+                  width: 23px;
+                  height: 23px;
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+        .totalCount {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 405px) {
+    .modalContainer {
+      max-width: 250px;
+      .modal {
+        .selectedItems {
+          max-height: 270px;
+          gap: 10px;
+          .eachItem {
+            gap: 10px;
+            flex-direction: column;
+            img {
+              width: 100%;
+              height: 50px;
+            }
+            .infoOfItem {
+              align-items: center;
+              p:first-child {
+                text-align: center;
+                font-size: 14px;
+              }
+              .buttons {
+                gap: 16px;
+              }
+            }
+          }
+        }
+        .totalCount {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

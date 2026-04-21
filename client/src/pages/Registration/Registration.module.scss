@@ -1,0 +1,236 @@
+@use "../../global/global.scss" as *;
+
+.regSec {
+  .container {
+    max-width: 1440px;
+    margin: auto;
+    .registationSection {
+      display: flex;
+      justify-content: space-around;
+      gap: 40px;
+      padding: 60px 40px;
+      .leftSec {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 620px;
+        width: 100%;
+        .loginBox {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          gap: 10px;
+          font-size: 23px;
+          h2 {
+            font-size: 40px;
+            font-weight: bold;
+            color: #311f09;
+          }
+          span {
+            color: #5c4529;
+            a {
+              color: rgb(14, 165, 246);
+            }
+          }
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+          padding-top: 20px;
+          fieldset {
+            border-radius: 10px;
+            position: relative;
+            border: none;
+            legend {
+              position: absolute;
+              color: red;
+              left: 2%;
+              top: -34%;
+            }
+            input {
+              width: 100%;
+              outline: none;
+              border-radius: 10px;
+              padding: 15px;
+              font-size: 18px;
+              &::placeholder {
+                font-size: 18px;
+              }
+            }
+            .seePass {
+              position: absolute;
+              right: 3%;
+              top: 20%;
+              font-size: 30px;
+              cursor: pointer;
+            }
+          }
+          .buttons {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            button {
+              padding: 20px;
+              width: 100%;
+              @include btnStylesAndHover();
+              border-radius: 10px;
+              font-size: 18px;
+            }
+            & button:last-child {
+              background: rgb(178, 81, 81);
+              &:hover {
+                color: white;
+                background: red;
+              }
+            }
+          }
+        }
+        .copyRight {
+          text-align: center;
+          font-size: 20px;
+          margin-top: 20px;
+        }
+      }
+      .rightSec {
+        .mobileVersionImg {
+          display: none;
+        }
+        img {
+          max-width: 700px;
+          width: 100%;
+          height: 700px;
+        }
+      }
+      @media screen and (max-width: 1300px) {
+        gap: 10px;
+        .leftSec {
+          max-width: 500px;
+        }
+        .rightSec {
+          img {
+            max-width: 500px;
+          }
+        }
+      }
+      @media screen and (max-width: 1165px) {
+        gap: 30px;
+        .leftSec {
+          max-width: 450px;
+        }
+        .rightSec {
+          img {
+            max-width: unset;
+            width: 450px;
+          }
+        }
+      }
+      @media screen and (max-width: 1000px) {
+        gap: 30px;
+        .rightSec {
+          img {
+            width: 430px;
+          }
+        }
+      }
+      @media screen and (max-width: 950px) {
+        padding: 0 0 60px;
+        .leftSec {
+          padding: 0 35px;
+        }
+        flex-direction: column;
+        padding-top: 0;
+        .leftSec {
+          max-width: 920px;
+        }
+        .rightSec {
+          order: -1;
+          img {
+            width: 100%;
+            object-fit: cover;
+            height: 300px;
+            display: none;
+          }
+          .mobileVersionImg {
+            display: block;
+          }
+        }
+      }
+      @media screen and (max-width: 620px) {
+        .rightSec {
+          img {
+            height: 200px;
+          }
+        }
+        .leftSec {
+          .loginBox {
+            font-size: 21px;
+            h2 {
+              font-size: 35px;
+            }
+          }
+          form {
+            .buttons {
+              button {
+                font-size: 16px;
+              }
+            }
+          }
+          .copyRight {
+            font-size: 18px;
+          }
+        }
+      }
+      @media screen and (max-width: 530px) {
+        .leftSec {
+          form {
+            .buttons {
+              button {
+                padding: 15px 20px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 426px) {
+        .leftSec {
+          .loginBox {
+            font-size: 19px;
+            text-align: center;
+            h2 {
+              font-size: 32px;
+            }
+          }
+          form {
+            gap: 30px;
+            fieldset {
+              legend {
+                top: -44%;
+              }
+              input {
+                font-size: 16px;
+                padding: 10px 15px;
+                &::placeholder {
+                  font-size: 16px;
+                }
+              }
+              .seePass {
+                font-size: 25px;
+                right: 5%;
+              }
+            }
+            .buttons {
+              button {
+                font-size: 15px;
+              }
+            }
+          }
+          .copyRight {
+            font-size: 17px;
+          }
+        }
+      }
+    }
+  }
+}

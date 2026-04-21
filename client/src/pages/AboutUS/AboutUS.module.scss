@@ -1,0 +1,224 @@
+.aboutUsSec {
+  .container {
+    max-width: 1440px;
+    margin: auto;
+    .aboutUsBox {
+      padding: 50px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      overflow: hidden;
+      .firstBox {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 30px;
+        .firstleftSide {
+          display: flex;
+          align-items: center;
+          .title {
+            display: none;
+          }
+          img {
+            width: 500px;
+          }
+          .alternativeImg {
+            align-self: center;
+          }
+          .ownerImg {
+            height: 500px;
+            object-fit: contain;
+          }
+        }
+        .firsRightSide {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          .title {
+            font-size: 60px;
+            span {
+              color: orange;
+              font-weight: bold;
+            }
+          }
+          .info {
+            max-width: 700px;
+            width: 100%;
+            font-size: 20px;
+            line-height: 30px;
+          }
+        }
+      }
+      @media screen and (max-width: 1300px) {
+        .firstBox {
+          .firstleftSide {
+            img {
+              width: 450px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1300px) {
+        .firstBox {
+          .firstleftSide {
+            img {
+              width: 420px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1145px) {
+        .firstBox {
+          .firsRightSide {
+            .title {
+              font-size: 50px;
+            }
+            .info {
+              font-size: 19px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1036px) {
+        .firstBox {
+          .firstleftSide {
+            img {
+              width: 400px;
+            }
+          }
+          &:last-child {
+            .firstleftSide {
+              img {
+                align-self: flex-start;
+                padding-top: 20px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 977px) {
+        .firstBox {
+          .firstleftSide {
+            img {
+              width: 350px;
+            }
+          }
+          &:last-child {
+            .firstleftSide {
+              img {
+                align-self: center;
+              }
+            }
+          }
+          .firsRightSide {
+            .title {
+              font-size: 40px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 817px) {
+        .firstBox {
+          flex-direction: column;
+          .firstleftSide {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            order: -100;
+            .title {
+              font-size: 45px;
+              display: block;
+              text-align: center;
+              span {
+                color: orange;
+                font-weight: bold;
+              }
+            }
+          }
+          .firsRightSide {
+            .title {
+              display: none;
+            }
+            .info {
+              max-width: 100%;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 721px) {
+        .firstBox {
+          .firstleftSide {
+            .title {
+              font-size: 35px;
+            }
+            img {
+              width: 300px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 590px) {
+        .firstBox {
+          text-align: center;
+          .firstleftSide {
+            img {
+              width: 250px;
+            }
+          }
+          &:last-child {
+            gap: 20px;
+            .firstleftSide {
+              .ownerImg {
+                padding-top: 0;
+                height: unset;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 526px) {
+        .firstBox {
+          .firstleftSide {
+            flex-direction: column;
+            br {
+              display: none;
+            }
+            .title {
+              font-size: 30px;
+            }
+          }
+          .firsRightSide {
+            .info {
+              font-size: 17px;
+              text-align: center;
+            }
+          }
+          &:nth-child(3),
+          &:nth-child(4) {
+            .firstleftSide {
+              img {
+                width: 100%;
+              }
+            }
+          }
+          &:last-child {
+            gap: 29px;
+          }
+        }
+      }
+      @media screen and (max-width: 455px) {
+        .firstBox {
+          .firstleftSide {
+            img {
+              width: 200px;
+            }
+          }
+          .firsRightSide {
+            .info {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

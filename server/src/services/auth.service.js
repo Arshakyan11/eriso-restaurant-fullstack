@@ -1,0 +1,56 @@
+import User from "../models/user.model.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { errorThrower } from "../utils/errorThrower.js";
+export const register = async (data) => {
+  const { userName, phoneNumber, email, password } = data || {};
+  if (!userName || !phoneNumber || !email || !password) {
+    errorThrower("All required fields must be provided");
+  }
+  const existingUser = await User.findOne({
+    $or: [{ email }, { phoneNumber }],
+  });
+  if (existingUser) {
+    errorThrower("User with this email or phone already exists");
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const result = await User.create({
+    userName,
+    phoneNumber,
+    email,
+    password: hashedPassword,
+  });
+
+  const { password: _, ...userData } = result.toObject();
+  return userData;
+};
+
+export const login = async (data) => {
+  const { email, password } = data || {};
+  if (!email || !password) {
+    errorThrower("All required fields must be provided");
+  }
+  const existingUser = await User.findOne({ email });
+
+  if (!existingUser) {
+    errorThrower("Email or Password is wrong");
+  }
+
+  const isMatch = await bcrypt.compare(password, existingUser.password);
+
+  if (!isMatch) {
+    errorThrower("Email or Password is wrong");
+  }
+
+  const token = jwt.sign(
+    {
+      id: existingUser._id,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1h",
+    },
+  );
+  const { password: _, __v, ...lastResult } = existingUser.toObject();
+  return { user: { id: existingUser._id, ...lastResult }, token };
+};

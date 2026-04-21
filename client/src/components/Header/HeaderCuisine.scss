@@ -1,0 +1,244 @@
+.cuisinesBox {
+  .eachCuisine {
+    display: flex;
+    gap: 30px;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 40px;
+    margin-top: 50px;
+    .leftSide {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .restaurants {
+        font-size: 20px;
+        font-weight: 600;
+        color: #b5831e;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        &::after {
+          content: "";
+          display: block;
+          width: 30%;
+          height: 2px;
+          background-color: #b5831e;
+          margin-top: 4px;
+          border-radius: 1px;
+          transition: width 0.3s;
+        }
+        &:hover::after {
+          width: 70%;
+        }
+      }
+      .cusisineType {
+        font-size: 60px;
+        font-weight: bold;
+      }
+      .aboutCousine {
+        color: #5c4529;
+        max-width: 550px;
+        width: 100%;
+        font-size: 20px;
+      }
+    }
+    .rightSide {
+      overflow: hidden;
+      .aboutCousineMedia {
+        display: none;
+      }
+      img {
+        min-width: 300px;
+        height: 350px;
+        border-radius: 20px;
+      }
+    }
+  }
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 50px;
+  }
+
+  @media screen and (max-width: 1085px) {
+    & {
+      .eachCuisine {
+        .leftSide {
+          .restaurants {
+            font-size: 18px;
+          }
+          .cusisineType {
+            font-size: 50px;
+          }
+          .aboutCousine {
+            font-size: 18px;
+          }
+        }
+        .rightSide {
+          min-width: 250px;
+          img {
+            height: 300px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 960px) {
+    & {
+      .eachCuisine {
+        .leftSide {
+          .aboutCousine {
+            max-width: 400px;
+          }
+        }
+        .rightSide {
+          img {
+            max-width: 300px;
+            object-fit: cover;
+          }
+        }
+      }
+      .swiper-button-prev::after,
+      .swiper-button-next::after {
+        font-size: 35px;
+      }
+    }
+  }
+  @media screen and (max-width: 840px) {
+    & {
+      .eachCuisine {
+        .rightSide {
+          img {
+            max-width: 280px;
+            width: 100%;
+            min-width: unset;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 810px) {
+    & {
+      .eachCuisine {
+        .leftSide {
+          .aboutCousine {
+            max-width: 300px;
+          }
+          .cusisineType {
+            font-size: 40px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 678px) {
+    & {
+      .eachCuisine {
+        .leftSide {
+          .aboutCousine {
+            max-width: 270px;
+          }
+          .cusisineType {
+            font-size: 35px;
+          }
+        }
+        .rightSide {
+          img {
+            max-width: 240px;
+            height: 250px;
+            width: 100%;
+            min-width: unset;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 595px) {
+    & {
+      .eachCuisine {
+        flex-direction: column;
+        .leftSide {
+          .restaurants {
+            font-size: 23px;
+            text-align: center;
+            pointer-events: none;
+            &::after {
+              width: 150%;
+              margin-left: -25%;
+            }
+          }
+          .aboutCousine {
+            display: none;
+          }
+          .cusisineType {
+            font-size: 35px;
+            .br {
+              display: none;
+            }
+          }
+        }
+        .rightSide {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 20px;
+          .aboutCousineMedia {
+            display: block;
+            font-size: 20px;
+          }
+          img {
+            max-width: 240px;
+            height: 250px;
+            width: 100%;
+            min-width: unset;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 434px) {
+    & {
+      .eachCuisine {
+        .leftSide {
+          .restaurants {
+            font-size: 21px;
+          }
+          .cusisineType {
+            font-size: 30px;
+          }
+        }
+        .rightSide {
+          .aboutCousineMedia {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 380px) {
+    & {
+      .eachCuisine {
+        .leftSide {
+          .restaurants {
+            font-size: 19px;
+          }
+          .cusisineType {
+            font-size: 28px;
+          }
+        }
+        .rightSide {
+          img {
+            max-width: 200px;
+            height: 210px;
+            width: 100%;
+            min-width: unset;
+          }
+        }
+      }
+      .swiper-button-prev::after,
+      .swiper-button-next::after {
+        font-size: 25px;
+      }
+    }
+  }
+}

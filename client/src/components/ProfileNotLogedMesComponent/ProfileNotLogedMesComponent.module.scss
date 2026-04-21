@@ -1,0 +1,37 @@
+.notFoundAnyItem {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 1100px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 20px;
+  h2 {
+    font-size: 35px;
+    color: red;
+  }
+  a {
+    background: #4caf50;
+
+    font-size: 20px;
+    padding: 10px 50px;
+    border-radius: 20px;
+    max-width: 200px;
+    width: 100%;
+    cursor: pointer;
+    color: #fff;
+  }
+  @media screen and (max-width: 840px) {
+    h2 {
+      font-size: 30px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    h2 {
+      font-size: 25px;
+    }
+  }
+}

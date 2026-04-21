@@ -1,0 +1,511 @@
+@use "../../global/global.scss" as  *; 
+.mainNav {
+  background: #fffdf6;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid #cccccc;
+  position: sticky;
+  z-index: 998;
+  top: 0;
+  .container {
+    max-width: 1440px;
+    margin: auto;
+    .navSection {
+      .topNavSection {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        gap: 20px;
+        .left {
+          overflow: hidden;
+          width: 210px;
+          img {
+            width: 210px;
+            height: 100px;
+            object-fit: contain;
+            cursor: pointer;
+          }
+        }
+        .middle {
+          display: flex;
+          align-items: center;
+          ul {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            li {
+              a {
+                color: #212121;
+                font-size: 20px;
+                padding: 8px 0;
+                position: relative;
+                transition: all 0.3s ease;
+
+                &::after {
+                  content: "";
+                  position: absolute;
+                  left: 0;
+                  bottom: -4px;
+                  height: 2px;
+                  width: 0;
+                  background: orange;
+                  transition: all 0.3s ease;
+                }
+                &:hover {
+                  color: orange;
+                  &::after {
+                    width: 100%;
+                  }
+                }
+              }
+            }
+            .dropDown {
+              position: relative;
+              .dropDownToggle {
+                background: transparent;
+                border: none;
+                font-size: 20px;
+                cursor: pointer;
+                color: #212121;
+                padding: 5px;
+                transition: color 0.3s ease;
+                &:hover {
+                  color: orange;
+                }
+              }
+              .dropDownMenu {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                background: #fffdf6;
+                top: 100%;
+                left: 0;
+                z-index: 199;
+                padding: 10px 0;
+                width: 200px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 4px;
+                a {
+                  padding: 10px 20px;
+                  font-size: 18px;
+                  color: #333;
+                  transition: all 0.3s ease;
+                  &:hover {
+                    background: #f0f0f0;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .right {
+          display: flex;
+          gap: 20px;
+          a,
+          button {
+            color: white;
+            background: #3fa72f;
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+            svg {
+              vertical-align: top;
+              margin-right: 5px;
+              margin-top: 1px;
+            }
+            &:hover {
+              background: #329125;
+            }
+          }
+          button {
+            background: #ff5e57;
+            &:hover {
+              background: #e14b45;
+            }
+          }
+        }
+        .burger {
+          display: none;
+          svg {
+            font-size: 60px;
+            cursor: pointer;
+            color: rgb(50, 50, 50);
+          }
+        }
+      }
+      .bottomNavSection {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+        .middle {
+          display: none;
+          align-items: center;
+          align-self: center;
+          ul {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            li {
+              a {
+                color: #212121;
+                font-size: 20px;
+                padding: 8px 0;
+                position: relative;
+                transition: all 0.3s ease;
+                &::after {
+                  content: "";
+                  position: absolute;
+                  left: 0;
+                  bottom: -4px;
+                  height: 2px;
+                  width: 0;
+                  background: orange;
+                  transition: all 0.3s ease;
+                }
+                &:hover {
+                  color: orange;
+                  &::after {
+                    width: 100%;
+                  }
+                }
+              }
+            }
+            .dropDown {
+              position: relative;
+              .dropDownToggle {
+                background: transparent;
+                border: none;
+                font-size: 20px;
+                cursor: pointer;
+                color: #212121;
+                padding: 5px;
+                transition: color 0.3s ease;
+                &:hover {
+                  color: orange;
+                }
+              }
+              .dropDownMenu {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                background: #fffdf6;
+                top: 100%;
+                left: 0;
+                z-index: 100;
+                padding: 10px 0;
+                width: 200px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 4px;
+                a {
+                  padding: 10px 20px;
+                  font-size: 18px;
+                  color: #333;
+                  transition: all 0.3s ease;
+                  &:hover {
+                    background: #f0f0f0;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .right {
+          display: flex;
+          gap: 20px;
+          a,
+          button {
+            color: white;
+            background: #3fa72f;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+            svg {
+              vertical-align: top;
+              margin-right: 5px;
+              margin-top: 2.4px;
+            }
+            .newUserSvg {
+              margin-top: 0px;
+            }
+            &:hover {
+              background: #329125;
+            }
+          }
+          button {
+            background: #ff5e57;
+            &:hover {
+              background: #e14b45;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1183px) {
+        .topNavSection {
+          .middle {
+            ul {
+              gap: 40px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1163px) {
+        .topNavSection {
+          .middle {
+            ul {
+              li {
+                a {
+                  font-size: 19px;
+                }
+              }
+              .dropDown {
+                .dropDownToggle {
+                  font-size: 19px;
+                }
+              }
+            }
+          }
+          .right {
+            a,
+            button {
+              font-size: 17px;
+              svg {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1300px) {
+        .topNavSection {
+          .middle {
+            ul {
+              .dropDown {
+                .dropDownMenu {
+                  top: 150%;
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1120px) {
+        .topNavSection {
+          .middle {
+            ul {
+              gap: 34px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1085px) {
+        .topNavSection {
+          .middle {
+            ul {
+              gap: 50px;
+              li {
+                a {
+                  font-size: 21px;
+                }
+              }
+              .dropDown {
+                .dropDownToggle {
+                  font-size: 21px;
+                }
+                .dropDownMenu {
+                  left: -100%;
+                }
+              }
+            }
+          }
+          .burger {
+            display: block;
+          }
+          .right {
+            display: none;
+          }
+        }
+        .bottomNavSection {
+          .right {
+            width: 100%;
+            margin: auto;
+            a,
+            button {
+              width: 100%;
+              font-size: 16px;
+              border-radius: 5px;
+              text-align: center;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 963px) {
+        .topNavSection {
+          padding-left: 0;
+          .middle {
+            ul {
+              gap: 25px;
+              li {
+                a {
+                  font-size: 20px;
+                }
+              }
+              .dropDown {
+                .dropDownToggle {
+                  font-size: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 850px) {
+        .topNavSection {
+          padding-right: 30px;
+          .middle {
+            ul {
+              gap: 25px;
+              li {
+                a {
+                  font-size: 19px;
+                }
+              }
+              .dropDown {
+                .dropDownToggle {
+                  font-size: 19px;
+                }
+              }
+            }
+          }
+          .burger {
+            svg {
+              font-size: 50px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 762px) {
+        .topNavSection {
+          .middle {
+            display: none;
+          }
+        }
+        .bottomNavSection {
+          .middle {
+            ul {
+              .dropDown {
+                .dropDownMenu {
+                  left: -65%;
+                  top: 150%;
+                }
+              }
+            }
+          }
+        }
+        .bottomNavSection {
+          .middle {
+            display: flex;
+          }
+        }
+      }
+      @media screen and (max-width: 615px) {
+        .bottomNavSection {
+          .middle {
+            ul {
+              flex-wrap: wrap;
+              column-gap: 30px;
+              row-gap: 20px;
+              justify-content: center;
+              li {
+                a {
+                  font-size: 18px;
+                }
+              }
+              .dropDown {
+                .dropDownToggle {
+                  padding-left: 0;
+                  font-size: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 515px) {
+        .bottomNavSection {
+          .middle {
+            ul {
+              li {
+                a {
+                  font-size: 17px;
+                }
+              }
+              .dropDown {
+                .dropDownToggle {
+                  font-size: 17px;
+                }
+                .dropDownMenu {
+                  left: -40%;
+                }
+              }
+            }
+          }
+          .right {
+            a,
+            button {
+              font-size: 16px;
+              svg {
+                font-size: 14px;
+              }
+              .regSvg {
+                margin-top: 3px;
+              }
+              .newUserSvg {
+                margin-top: 2px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 450px) {
+        .topNavSection {
+          .burger {
+            svg {
+              font-size: 40px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 365px) {
+        .topNavSection {
+          .left {
+            width: 180px;
+            img {
+              width: 180px;
+            }
+          }
+        }
+        .bottomNavSection {
+          .right {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+}
+
+.active {
+  color: orange !important;
+  &::after {
+    width: 100% !important;
+  }
+}

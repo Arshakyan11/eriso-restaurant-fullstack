@@ -1,0 +1,254 @@
+.eachMealSec {
+  background: #fdfaf6;
+  .container {
+    max-width: 1440px;
+    margin: auto;
+    padding: 20px;
+    .eachProduct {
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      max-width: 1050px;
+      gap: 20px;
+      margin: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      .leftSection {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 280px;
+        width: 100%;
+        img {
+          width: 100%;
+          border-radius: 20px;
+          transition: all 0.5s;
+          &:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+          }
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .infoSecMiddle {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          font-size: 20px;
+          line-height: 1.6;
+          .ingredientsTitle {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+          }
+          .ingredients {
+            text-transform: capitalize;
+            text-align: center;
+            row-gap: 2px;
+            word-spacing: 5px;
+            color: #555;
+          }
+        }
+      }
+      .rightSection {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 700px;
+        width: 100%;
+        padding: 20px;
+        font-size: 20px;
+        color: #444;
+        .infoSecMiddle {
+          display: flex;
+          text-transform: capitalize;
+          justify-content: space-between;
+          border-bottom: 1px solid #c4c1c1;
+          padding-bottom: 10px;
+          column-gap: 15px;
+          p:first-child {
+            font-weight: 500;
+            color: #666;
+          }
+          P:last-child {
+            text-align: end;
+          }
+        }
+        .buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          padding-top: 30px;
+          a,
+          button {
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            text-align: center;
+            transition: all 0.5s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          }
+          a {
+            background: #ff9f1c;
+            color: #fff;
+            font-weight: 500;
+            text-align: center;
+            vertical-align: middle;
+            svg {
+              vertical-align: middle;
+            }
+            &:hover {
+              background: #e78900;
+              transform: translateY(-3px);
+            }
+          }
+          button,
+          .goLogin {
+            vertical-align: middle;
+            background: none;
+            border: 2px solid #ff9f1c;
+            color: #ff9f1c;
+            cursor: pointer;
+            font-weight: 500;
+            svg {
+              vertical-align: middle;
+              margin-left: 8px;
+            }
+            &:hover {
+              background: #ff9f1c;
+              color: #fff;
+              transform: translateY(-3px);
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1200px) {
+        .leftSection {
+          .infoSecMiddle {
+            .ingredientsTitle {
+              font-size: 26px;
+            }
+          }
+        }
+        .rightSection {
+          font-size: 18px;
+          .buttons {
+            a,
+            button {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 945px) {
+        .leftSection {
+          .infoSecMiddle {
+            .ingredientsTitle {
+              font-size: 24px;
+            }
+            .ingredients {
+              font-size: 17px;
+            }
+          }
+        }
+        .rightSection {
+          font-size: 17px;
+          .buttons {
+            a,
+            button {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 780px) {
+        flex-direction: column;
+        padding: 40px 20px;
+        .leftSection {
+          flex-direction: row;
+          max-width: 100%;
+          img {
+            min-height: 200px;
+            width: 200px;
+            object-fit: cover;
+          }
+          .infoSecMiddle {
+            .ingredientsTitle {
+              margin-bottom: 0;
+            }
+          }
+        }
+        .rightSection {
+          .buttons {
+            a,
+            button {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 575px) {
+        padding: 10px 30px 40px;
+        .leftSection {
+          flex-direction: column;
+          img {
+            height: 200px;
+            width: 100%;
+          }
+          .infoSecMiddle {
+            align-items: center;
+          }
+        }
+        .rightSection {
+          .buttons {
+            a,
+            button {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 465px) {
+        padding: 10px 20px 40px;
+        .leftSection {
+          flex-direction: column;
+          img {
+            min-height: unset;
+            height: 150px;
+          }
+          .infoSecMiddle {
+            .ingredientsTitle {
+              font-size: 22px;
+            }
+            .ingredients {
+              font-size: 16px;
+            }
+          }
+        }
+        .rightSection {
+          .infoSecMiddle {
+            font-size: 15px;
+          }
+          .buttons {
+            a,
+            button {
+              font-size: 14px;
+              padding: 15px 20px;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 405px) {
+        .rightSection {
+          .infoSecMiddle {
+            flex-direction: column;
+            gap: 10px;
+            P:last-child {
+              text-align: start;
+            }
+          }
+        }
+      }
+    }
+  }
+}

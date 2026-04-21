@@ -1,0 +1,188 @@
+.OurAddressSec {
+  background: linear-gradient(to bottom, #f7f6f4, #fff);
+  .container {
+    max-width: 1440px;
+    margin: auto;
+    .ourRestaurants {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      padding: 40px;
+      .firstRestaurant {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        max-width: 1100px;
+        margin: auto;
+        .title {
+          font-size: 50px;
+          text-align: center;
+          span {
+            color: orange;
+            font-weight: bold;
+          }
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .infoEachLine {
+            display: flex;
+            gap: 5px;
+            p {
+              font-size: 20px;
+              flex: 1;
+            }
+            svg {
+              font-size: 20px;
+
+            }
+          }
+        }
+        .location {
+          display: flex;
+          justify-content: space-between;
+          line-height: 1.5;
+          gap: 20px;
+          .textInfo {
+            .mapWrapperMedian {
+              max-width: 600px;
+              width: 100%;
+              display: none;
+              iframe {
+                width: 100%;
+              }
+            }
+            span {
+              font-size: 50px;
+            }
+            p {
+              max-width: 500px;
+              width: 100%;
+              font-size: 20px;
+              color: #333;
+            }
+          }
+          .mapWrapper {
+            max-width: 600px;
+            width: 100%;
+            iframe {
+              width: 100%;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 1212px) {
+        .firstRestaurant {
+          .title {
+            font-size: 45px;
+          }
+          .location {
+            justify-content: space-evenly;
+          }
+        }
+      }
+      @media screen and (max-width: 818px) {
+        .firstRestaurant {
+          .title {
+            font-size: 40px;
+          }
+          .location {
+            .textInfo {
+              span {
+                font-size: 40px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 770px) {
+        .firstRestaurant {
+          .title {
+            font-size: 35px;
+          }
+          .info {
+            .infoEachLine {
+              p {
+                font-size: 18px;
+              }
+              svg {
+                font-size: 18px;
+              }
+            }
+          }
+          .location {
+            flex-direction: column;
+            .textInfo {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+              align-items: center;
+              .mapWrapperMedian {
+                display: block;
+              }
+              p {
+                font-size: 18px;
+                max-width: 600px;
+              }
+              span {
+                font-size: 40px;
+              }
+            }
+            .mapWrapper {
+              display: none;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 555px) {
+        .firstRestaurant {
+          .title {
+            font-size: 30px;
+          }
+          .location {
+            .textInfo {
+              .mapWrapperMedian {
+                max-width: 400px;
+                iframe {
+                  height: 300px;
+                }
+              }
+              P {
+                font-size: 17px;
+                max-width: 400px;
+                text-align: center;
+              }
+              span {
+                font-size: 35px;
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 455px) {
+        .firstRestaurant {
+          .title {
+            font-size: 30px;
+          }
+          .location {
+            .textInfo {
+              .mapWrapperMedian {
+                max-width: 300px;
+                iframe {
+                  height: 200px;
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 365px) {
+        padding: 40px 20px;
+      }
+    }
+  }
+}
