@@ -1,4 +1,8 @@
-import { login, register } from "../services/auth.service.js";
+import {
+  login,
+  register,
+  resetPasswordService,
+} from "../services/auth.service.js";
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -14,6 +18,16 @@ export const loginUser = async (req, res, next) => {
   try {
     const data = req.body;
     const result = await login(data);
+    return res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resetPassword = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const result = await resetPasswordService(data);
     return res.status(200).json(result);
   } catch (error) {
     next(error);

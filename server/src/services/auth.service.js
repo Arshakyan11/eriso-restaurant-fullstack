@@ -54,3 +54,27 @@ export const login = async (data) => {
   const { password: _, __v, ...lastResult } = existingUser.toObject();
   return { user: { id: existingUser._id, ...lastResult }, token };
 };
+
+export const resetPasswordService = async (data) => {
+  const { email, password, newPassword } = data || {};
+  if (!email || !password || !newPassword) {
+    errorThrower("All required fields must be provided");
+  }
+  const existingUser = await User.findOne({ email });
+  if (!existingUser) {
+    errorThrower("Email or Password is wrong!!!");
+  }
+  const isMatch = await bcrypt.compare(password, existingUser.password);
+  if (!isMatch) {
+    errorThrower("Password is wrong");
+  }
+  if (password === newPassword) {
+    errorThrower("New password must be different");
+  }
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  existingUser.password = hashedPassword;
+  await existingUser.save();
+  return {
+    message: "Password has been changed successfully",
+  };
+};
