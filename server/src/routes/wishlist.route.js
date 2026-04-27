@@ -10,8 +10,8 @@ import { validate } from "../middlewares/validate.middleware.js";
 import { wishlistSchema } from "../validators/wishlist.validator.js";
 
 const router = express.Router();
-router.get("/", authMiddleware, validate(wishlistSchema), getAllWishList);
-router.post("/", authMiddleware, updateWishList);
+router.get("/", authMiddleware, getAllWishList);
+router.post("/", authMiddleware, validate(wishlistSchema), updateWishList);
 router.delete("/:id", authMiddleware, deleteWishlistItem);
 router.patch("/:id", authMiddleware, editCountOfItem);
 

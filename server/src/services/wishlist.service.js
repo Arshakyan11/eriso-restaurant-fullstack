@@ -10,33 +10,33 @@ export const getWishlistService = async (userID) => {
 };
 
 export const updateWishlistService = async (userWishList, userID) => {
-  const { id, name, price, calories, count, img } = userWishList || {};
+  const { name, price, calories, count, img } = userWishList || {};
 
-  if (!id || !name || !price || !calories || count == null || !img) {
+  if (!name || !price || !calories || count == null || !img) {
     errorThrower("All required fields must be provided");
   }
-
   const user = await User.findById(userID);
 
   if (!user) {
     errorThrower("User not found", 404);
   }
-
-  const existingItem = user.wishList.find((elm) => elm.id === id);
+  const existingItem = user.wishList.find((elm) => elm.name === name);
   if (existingItem) {
     errorThrower("Item is already in Wishlist", 400);
-  } else {
-    user.wishList.push({
-      id,
-      name,
-      price,
-      calories,
-      count,
-      img,
-    });
   }
+  user.wishList.push({
+    id: crypto.randomUUID(),
+    name,
+    price,
+    calories,
+    count,
+    img,
+  });
   await user.save();
-  return user.wishList;
+  return {
+    message: "Item successfully added to wishlist",
+    wishList: user.wishList,
+  };
 };
 
 export const deleteWishlistItemService = async (userID, itemID) => {

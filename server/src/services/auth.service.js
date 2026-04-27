@@ -51,8 +51,8 @@ export const login = async (data) => {
       expiresIn: "1h",
     },
   );
-  const { password: _, __v, ...lastResult } = existingUser.toObject();
-  return { user: { id: existingUser._id, ...lastResult }, token };
+  const { password: _, __v, _id, ...lastResult } = existingUser.toObject();
+  return { user: { id: _id, ...lastResult }, token };
 };
 
 export const resetPasswordService = async (data) => {

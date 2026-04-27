@@ -18,8 +18,7 @@ export const postReservationService = async (data, userID) => {
   if (!result) {
     errorThrower("Reservation already exists", 400);
   }
-  const { password: _, ...lastResult } = result.toObject();
-  return lastResult;
+  return { message: "Successfully reserved" };
 };
 
 export const deleteReservationService = async (userID) => {
