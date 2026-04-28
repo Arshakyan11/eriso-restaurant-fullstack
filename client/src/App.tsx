@@ -22,6 +22,7 @@ import {
   Search,
   Staff,
 } from "./pages";
+import ProtectedRoute from "./helpers/ProtectedRoute";
 function App() {
   return (
     <div>
@@ -55,16 +56,18 @@ function App() {
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.EACHPRODUCT} element={<EachProduct />} />
           <Route path={ROUTES.NOTFOUND} element={<NotFound />} />
-          <Route path={ROUTES.PROFILE} element={<ProfileLayOut />}>
-            <Route index element={<Profile />} />
-            <Route
-              path={ROUTES.PROFILERESERVEDATE}
-              element={<ProfileReservation />}
-            />
-            <Route
-              path={ROUTES.PROFILEWISHLIST}
-              element={<ProfileWishList />}
-            />
+          <Route element={<ProtectedRoute />}>
+            <Route path={ROUTES.PROFILE} element={<ProfileLayOut />}>
+              <Route index element={<Profile />} />
+              <Route
+                path={ROUTES.PROFILERESERVEDATE}
+                element={<ProfileReservation />}
+              />
+              <Route
+                path={ROUTES.PROFILEWISHLIST}
+                element={<ProfileWishList />}
+              />
+            </Route>
           </Route>
         </Route>
       </Routes>
