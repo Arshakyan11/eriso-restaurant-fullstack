@@ -11,10 +11,11 @@ import { createUserData } from "../../helpers/sendData";
 import { userRegistrationValidation } from "../../helpers/useValidation";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { ROUTES } from "../../routes/Routes";
+import MainLoader from "../../components/MainLoader/MainLoader";
 const Registration = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { initialValues, isHidden } = useAppSelector(getAllRegInfo);
+  const { initialValues, isHidden, loading } = useAppSelector(getAllRegInfo);
 
   return (
     <section className={styles.regSec}>
@@ -110,6 +111,7 @@ const Registration = () => {
           </div>
         </div>
       </div>
+      <MainLoader isLoading={loading} />
     </section>
   );
 };

@@ -2,8 +2,8 @@ import { nanoid } from "nanoid";
 import {
   addingReserveTable,
   addingWishlistToData,
-  checkingUserExisting,
-  creatingUserData,
+  loginUser,
+  registerUser,
   sendingMessage,
   updatingProfileInformation,
 } from "../store/api/api";
@@ -24,6 +24,7 @@ import type {
   WishList,
 } from "../types";
 import { ROUTES } from "../routes/Routes";
+import { useAsyncAction } from "../hooks/useAsyncAction";
 
 export const createDataContact = (
   e: ContactFormValuesTypes,
@@ -42,8 +43,8 @@ export const createDataContact = (
   dispatch(sendingMessage(data));
   form.resetForm();
 };
-
-export const createUserData = (
+const run = useAsyncAction();
+export const createUserData = async (
   event: CreateUserDataType,
   form: FormHelpers,
   dispatch: AppDispatch,
@@ -51,31 +52,37 @@ export const createUserData = (
 ) => {
   const { userName, phoneNumber, email, password } = event;
   const data = {
-    id: nanoid(7),
     userName,
     phoneNumber,
     email,
     password,
-    wishList: [] as WishList[],
-    totalCheckPrice: "0.000",
   };
-  navigate(`/${ROUTES.LOGIN}`);
-  dispatch(creatingUserData(data));
+  const result = await run({
+    action: () => dispatch(registerUser(data)).unwrap(),
+    successMessage: (res) => res,
+  });
+  if (result) {
+    navigate(`/${ROUTES.LOGIN}`, {
+      state: { successType: "registration" },
+    });
+  }
   form.resetForm();
 };
 
-export const checkUserSendingData = (
+export const loginUserHelper = async (
   event: CheckUserSendingDataType,
   dispatch: AppDispatch,
   navigate: NavigateFunction,
 ) => {
-  const { email, password } = event;
-  const data = {
-    email,
-    password,
-    navigate,
-  };
-  dispatch(checkingUserExisting(data));
+  const result = await run({
+    action: () => dispatch(loginUser(event)).unwrap(),
+    successMessage: () => "You are logged in",
+  });
+  if (result) {
+    localStorage.setItem("userInfo", JSON.stringify(result.user));
+    localStorage.setItem("idToken", JSON.stringify(result.token));
+    navigate("/");
+  }
 };
 
 export const reserveTableInfo = (

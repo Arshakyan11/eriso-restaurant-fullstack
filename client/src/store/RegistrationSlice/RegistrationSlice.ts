@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { creatingUserData } from "../api/api";
+import { registerUser } from "../api/api";
 import type { RootState } from "../store";
 
 interface RegistrationSliceType {
@@ -39,17 +39,17 @@ const RegistrationSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(creatingUserData.pending, (state) => {
+    builder.addCase(registerUser.pending, (state) => {
       state.loading = true;
       state.error = null;
       state.succesMessage = null;
     });
-    builder.addCase(creatingUserData.fulfilled, (state, action) => {
+    builder.addCase(registerUser.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
       state.succesMessage = action.payload;
     });
-    builder.addCase(creatingUserData.rejected, (state, action) => {
+    builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload ?? "Something Went Wrong!!";
     });

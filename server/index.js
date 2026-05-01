@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoute from "./src/routes/auth.route.js";
 import wishlistRoute from "./src/routes/wishlist.route.js";
 import reservationRoute from "./src/routes/reservation.route.js";
+import cors from "cors";
 import {
   applimiter,
   loginLimiter,
@@ -11,6 +12,8 @@ import {
 } from "./src/middlewares/rateLimit.middleware.js";
 dotenv.config();
 const app = express();
+
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

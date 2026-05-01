@@ -24,11 +24,10 @@ export interface CreateUserDataType {
   password: string;
 }
 
-export interface CreateUserDataTypeWithId extends CreateUserDataType {
-  id: string;
-  totalCheckPrice: string;
-  wishList: WishList[];
-}
+export type SignInDataRecievingType = {
+  token: string;
+  user: string;
+};
 
 export interface CheckUserSendingDataType {
   email: string;
@@ -52,5 +51,4 @@ export interface UpdateDataOnProfileType {
 export interface CheckingUserType {
   email: string;
   password: string;
-  navigate: NavigateFunction;
 }

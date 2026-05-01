@@ -1,12 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { checkingUserExisting } from "../api/api";
+import { loginUser } from "../api/api";
 import type { RootState } from "../store";
+import type { SignInDataRecievingType } from "../../types";
 
 interface LoginSliceType {
   isHidenPASS: boolean;
   loading: boolean;
   error: string | null;
-  userExisting: boolean;
+  userInfo: SignInDataRecievingType | null;
   initialValues: {
     email: string;
     password: string;
@@ -17,7 +18,7 @@ const initialState: LoginSliceType = {
   isHidenPASS: false,
   loading: false,
   error: null,
-  userExisting: false,
+  userInfo: null,
   initialValues: {
     email: "",
     password: "",
@@ -33,16 +34,16 @@ const LoginSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(checkingUserExisting.pending, (state) => {
+    builder.addCase(loginUser.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(checkingUserExisting.fulfilled, (state, action) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.userExisting = action.payload;
+      state.userInfo = action.payload;
     });
-    builder.addCase(checkingUserExisting.rejected, (state, action) => {
+    builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload ?? "Something went wrong!";
       // state.succesMessage = false;

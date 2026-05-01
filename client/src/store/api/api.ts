@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { notifyForError, notifyForSMth } from "../../helpers/notifyUser";
-import { setEmailManualy } from "../ProfileSlice/ProfileSlice";
-import { setUserInfoManualy } from "../ReservationSlice/ReservationSlice";
 import { nanoid } from "nanoid";
 import { setUserInfo } from "../AuthSlice/AuthSlice";
 import type {
@@ -16,8 +14,9 @@ import type {
 import type {
   CheckingUserType,
   ContactFormValuesWithId,
-  CreateUserDataTypeWithId,
+  CreateUserDataType,
   ReserveTableInfoType,
+  SignInDataRecievingType,
   UpdateDataOnProfileType,
 } from "../../types/formTypes";
 import type { AppDispatch } from "../store";
@@ -25,7 +24,8 @@ import {
   spreedProperties,
   spreedPropertiesWidely,
 } from "../../helpers/sendData";
-import { ROUTES } from "../../routes/Routes";
+import { extractErrorMessage } from "../../services/instance";
+import { loginUserApi, registerUserApi } from "../../services/auth.service";
 
 const instant = axios.create({
   timeoutErrorMessage: "Error 404",
@@ -44,15 +44,15 @@ export function getLocalUserStrict(): UserInfoType | null {
 const localStorageContacts = axios.create({
   timeoutErrorMessage: "Error 404",
   timeout: 10000,
-  baseURL: "http://localhost:5000/usersMessage",
+  baseURL: "http://localhost:8000/auth/signupMessage",
 });
+
 export const fetchingLittleMenu = createAsyncThunk<
   DataOflittleMenuType[],
   string,
   { rejectValue: string }
 >("littleMenu/fetchingLittleMenu", async (query, { rejectWithValue }) => {
   try {
-
     const res = await instant.get<{ hits: EdamamHit[] }>(
       `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&diet=balanced&app_id=${import.meta.env.VITE_FOODS_API_ID}&app_key=${import.meta.env.VITE_FOODS_API_KEY}`,
     );
@@ -143,9 +143,12 @@ export const fetchingGlobalMenu = createAsyncThunk<
 });
 
 const localStorageUsers = axios.create({
-  baseURL: "http://localhost:5000/users",
+  baseURL: "http://localhost:8000/auth/signup",
   timeout: 10000,
   timeoutErrorMessage: "Too much time for fetching data",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 const setingLocalStorageUserinfo = (
@@ -157,54 +160,44 @@ const setingLocalStorageUserinfo = (
 };
 
 const patchingUserDataToLocal = (id: string, data: Partial<UserInfoType>) => {
-  return axios.patch(`http://localhost:5000/users/${id}`, data, {
+  return axios.patch(`http://localhost:8000/auth/signup/${id}`, data, {
     timeout: 10000,
     timeoutErrorMessage: "Too much time for fetching data",
   });
 };
 
-export const creatingUserData = createAsyncThunk<
+export const registerUser = createAsyncThunk<
   string,
-  CreateUserDataTypeWithId,
+  CreateUserDataType,
   { rejectValue: string }
->("registration/creatingUserData", async (arg, { rejectWithValue }) => {
+>("registration/registerUser", async (data, { rejectWithValue }) => {
   try {
-    await localStorageUsers({ method: "POST", data: arg });
-    notifyForSMth("Account Registered Successfuly");
-    return "Success";
+    await registerUserApi(data);
+    return "Account Registered Successfuly";
   } catch (error) {
-    return rejectWithValue("Cant Add User to list, PLs try again later");
+    return rejectWithValue(
+      extractErrorMessage(error, "Cant Add User to list, PLs try again later"),
+    );
   }
 });
 
-export const checkingUserExisting = createAsyncThunk<
-  boolean,
+export const loginUser = createAsyncThunk<
+  SignInDataRecievingType,
   CheckingUserType,
   { rejectValue: string }
->("login/checkingUserExisting", async (data, { rejectWithValue, dispatch }) => {
+>("login/loginUser", async (data, { rejectWithValue }) => {
   try {
-    const { email, password, navigate } = data;
-    const res = await localStorageUsers({
-      method: "GET",
-    });
-    const response: UserInfoType[] = res.data;
-    const lastResult = response.find(
-      (elm) => elm.email === email && elm.password === password,
-    );
-    if (lastResult) {
-      localStorage.setItem("userInfo", JSON.stringify(lastResult));
-      dispatch(setEmailManualy(email));
-      dispatch(setUserInfoManualy(lastResult));
-      dispatch(setUserInfo(lastResult));
-      notifyForSMth("You Logged In");
-      navigate(ROUTES.HOME);
-      return true;
-    } else {
-      notifyForError("User not found");
-      return false;
-    }
+    const res = await loginUserApi(data);
+    console.log(res);
+    localStorage.setItem("userInfo", JSON.stringify(res.user));
+    localStorage.setItem("idToken", JSON.stringify(res.token));
+    // const { email, password } = data;
+    // dispatch(setEmailManualy(email));
+    // dispatch(setUserInfoManualy(lastResult));
+    // dispatch(setUserInfo(lastResult));
+    return res;
   } catch (error) {
-    return rejectWithValue("Error While Checking User");
+    return rejectWithValue(extractErrorMessage(error, "User not found!!!"));
   }
 });
 

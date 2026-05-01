@@ -7,7 +7,7 @@ import {
 } from "../../store/LoginSlice/LoginSlice";
 import { userLoginValidation } from "../../helpers/useValidation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { checkUserSendingData } from "../../helpers/sendData";
+import { loginUserHelper } from "../../helpers/sendData";
 import { loginPic, loginPic2 } from "../../components/Images";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { ROUTES } from "../../routes/Routes";
@@ -39,7 +39,7 @@ const Login = () => {
             <Formik
               initialValues={initialValues}
               validationSchema={userLoginValidation}
-              onSubmit={(e) => checkUserSendingData(e, dispatch, navigate)}
+              onSubmit={(e) => loginUserHelper(e, dispatch, navigate)}
             >
               <Form>
                 <fieldset>
