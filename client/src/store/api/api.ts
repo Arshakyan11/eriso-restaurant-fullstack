@@ -26,6 +26,10 @@ import {
 } from "../../helpers/sendData";
 import { extractErrorMessage } from "../../services/instance";
 import { loginUserApi, registerUserApi } from "../../services/auth.service";
+import {
+  deleteReservationApi,
+  makeReservationApi,
+} from "../../services/reservation.service";
 
 const instant = axios.create({
   timeoutErrorMessage: "Error 404",
@@ -151,7 +155,7 @@ const localStorageUsers = axios.create({
   },
 });
 
-const setingLocalStorageUserinfo = (
+export const setingLocalStorageUserinfo = (
   dispatch: AppDispatch,
   data: UserInfoType,
 ) => {
@@ -188,9 +192,6 @@ export const loginUser = createAsyncThunk<
 >("login/loginUser", async (data, { rejectWithValue }) => {
   try {
     const res = await loginUserApi(data);
-    console.log(res);
-    localStorage.setItem("userInfo", JSON.stringify(res.user));
-    localStorage.setItem("idToken", JSON.stringify(res.token));
     // const { email, password } = data;
     // dispatch(setEmailManualy(email));
     // dispatch(setUserInfoManualy(lastResult));
@@ -207,40 +208,27 @@ export const addingReserveTable = createAsyncThunk<
   { rejectValue: string; dispatch: AppDispatch }
 >(
   "reservation/addingReserveTable",
-  async (obj, { rejectWithValue, dispatch }) => {
+  async (obj, { dispatch, rejectWithValue }) => {
     try {
+      await makeReservationApi(obj);
       const userInfo = getLocalUserStrict();
-      if (!userInfo) {
-        return rejectWithValue("User not logged in");
-      }
-      const response = await localStorageUsers
-        .get<UserInfoType[]>("/")
-        .then((res) => res.data);
-      const findedUser = response.find(
-        (elm) => elm.id === userInfo.id && !elm.reservation,
-      );
-      if (findedUser) {
-        const reservation = {
-          reservation: obj,
-        };
-        patchingUserDataToLocal(`${findedUser["id"]}`, reservation);
-        const updatedData = {
-          ...userInfo,
-          reservation: obj,
-        };
-        setingLocalStorageUserinfo(dispatch, updatedData);
-        notifyForSMth("Reservation passed Successfuly");
-        return updatedData;
-      } else {
-        notifyForError(
-          "You have already had reservation, Go to Profile for concelation",
-        );
-        return rejectWithValue(
-          "You have already had reservation, go to Profile to cancel",
-        );
-      }
+      if (!userInfo) throw new Error("No user");
+
+      const updatedData = {
+        ...userInfo,
+        reservation: obj,
+      };
+      localStorage.setItem("userInfo", JSON.stringify(updatedData));
+      dispatch(setUserInfo(updatedData));
+
+      return updatedData;
     } catch (error) {
-      return rejectWithValue("Error 404");
+      return rejectWithValue(
+        extractErrorMessage(
+          error,
+          "Someting went wrong while adding reservation!",
+        ),
+      );
     }
   },
 );
@@ -253,20 +241,17 @@ export const deletingReservationTime = createAsyncThunk<
   "reservation/deletingReservationTime",
   async (_, { rejectWithValue, dispatch }) => {
     try {
+      await deleteReservationApi();
       const userInfo = getLocalUserStrict();
       if (!userInfo) {
         return rejectWithValue("User not logged in");
       }
-      const { data } = await localStorageUsers.get<UserInfoType>(
-        `/${userInfo.id}`,
-      );
-
-      const updatedData: UserInfoType = { ...data };
+      const updatedData: UserInfoType = {
+        ...userInfo,
+      };
       delete updatedData.reservation;
-      await localStorageUsers.put(`/${userInfo.id}`, updatedData);
       localStorage.setItem("userInfo", JSON.stringify(updatedData));
       dispatch(setUserInfo(updatedData));
-      notifyForSMth("Reservation deleted successfuly");
       return updatedData;
     } catch (error) {
       return rejectWithValue("Error while deleting Reservation");

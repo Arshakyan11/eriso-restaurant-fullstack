@@ -1,5 +1,4 @@
-import type { NavigateFunction } from "react-router-dom";
-import type { WishList } from "./apiHandlingTypes";
+import type { UserInfoType, WishList } from "./apiHandlingTypes";
 
 export interface FormHelpers {
   resetForm: () => void;
@@ -26,7 +25,7 @@ export interface CreateUserDataType {
 
 export type SignInDataRecievingType = {
   token: string;
-  user: string;
+  user: UserInfoType;
 };
 
 export interface CheckUserSendingDataType {

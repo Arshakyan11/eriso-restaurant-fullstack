@@ -1,11 +1,11 @@
 import "./Footer.scss";
 import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
-import { getAllReservationInfo } from "../../store/ReservationSlice/ReservationSlice";
 import { useAppSelector } from "../../store/store";
 import { ROUTES } from "../../routes/Routes";
+import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
 const Footer = () => {
-  const { userData } = useAppSelector(getAllReservationInfo);
+  const { userInfo } = useAppSelector(getUserInfo);
   return (
     <section className="footerSec">
       <div className="container">
@@ -68,7 +68,7 @@ const Footer = () => {
             </div>
             <div className="secondLine">
               <h2>Account</h2>
-              {userData ? (
+              {userInfo ? (
                 <>
                   <NavLink to={ROUTES.PROFILE}>Profile</NavLink>
                   <NavLink to={`/profile/${ROUTES.PROFILERESERVEDATE}`}>

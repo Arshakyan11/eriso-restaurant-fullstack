@@ -1,14 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import {
-  addingReserveTable,
-  deletingReservationTime,
-  getLocalUserStrict,
-} from "../api/api";
+import { createSlice } from "@reduxjs/toolkit";
+import { addingReserveTable, deletingReservationTime } from "../api/api";
 import type { RootState } from "../store";
-import type { UserInfoType } from "../../types";
 
 interface ReservationSliceType {
-  userData: UserInfoType | null;
   loading: boolean;
   error: string | null;
   initialValues: {
@@ -19,7 +13,6 @@ interface ReservationSliceType {
   };
 }
 const initialState: ReservationSliceType = {
-  userData: getLocalUserStrict(),
   loading: false,
   error: null,
   initialValues: {
@@ -33,11 +26,7 @@ const initialState: ReservationSliceType = {
 const ReservationSlice = createSlice({
   name: "reservation",
   initialState,
-  reducers: {
-    setUserInfoManualy: (state, action: PayloadAction<UserInfoType>) => {
-      state.userData = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(addingReserveTable.pending, (state) => {
       state.loading = true;
@@ -46,7 +35,6 @@ const ReservationSlice = createSlice({
     builder.addCase(addingReserveTable.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.userData = action.payload ?? state.userData;
     });
     builder.addCase(addingReserveTable.rejected, (state, action) => {
       state.loading = false;
@@ -59,7 +47,6 @@ const ReservationSlice = createSlice({
     builder.addCase(deletingReservationTime.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.userData = action.payload;
     });
     builder.addCase(deletingReservationTime.rejected, (state, action) => {
       state.loading = false;
@@ -69,5 +56,4 @@ const ReservationSlice = createSlice({
 });
 
 export default ReservationSlice.reducer;
-export const { setUserInfoManualy } = ReservationSlice.actions;
 export const getAllReservationInfo = (state: RootState) => state.reservation;

@@ -6,7 +6,7 @@ type JwtPayload = {
 };
 export const clearAuthStorage = () => {
   localStorage.removeItem("idToken");
-  localStorage.removeItem("idToken");
+  localStorage.removeItem("userInfo");
 };
 
 export const isTokenValid = () => {

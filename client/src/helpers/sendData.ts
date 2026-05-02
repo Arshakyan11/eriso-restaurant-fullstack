@@ -25,6 +25,7 @@ import type {
 } from "../types";
 import { ROUTES } from "../routes/Routes";
 import { useAsyncAction } from "../hooks/useAsyncAction";
+import { setUserInfo } from "../store/AuthSlice/AuthSlice";
 
 export const createDataContact = (
   e: ContactFormValuesTypes,
@@ -70,36 +71,40 @@ export const createUserData = async (
 };
 
 export const loginUserHelper = async (
-  event: CheckUserSendingDataType,
+  data: CheckUserSendingDataType,
   dispatch: AppDispatch,
   navigate: NavigateFunction,
 ) => {
   const result = await run({
-    action: () => dispatch(loginUser(event)).unwrap(),
+    action: () => dispatch(loginUser(data)).unwrap(),
     successMessage: () => "You are logged in",
   });
   if (result) {
     localStorage.setItem("userInfo", JSON.stringify(result.user));
-    localStorage.setItem("idToken", JSON.stringify(result.token));
+    localStorage.setItem("idToken", result.token);
+    dispatch(setUserInfo(result.user));
     navigate("/");
   }
 };
 
-export const reserveTableInfo = (
-  event: ReserveTableInfoType,
+export const reserveTableInfo = async (
+  data: ReserveTableInfoType,
   form: FormHelpers,
   dispatch: AppDispatch,
 ) => {
-  dispatch(addingReserveTable(event));
+  await run({
+    action: () => dispatch(addingReserveTable(data)).unwrap(),
+    successMessage: () => "Reservation created successfully",
+  });
   form.resetForm();
 };
 
 export const updateDataOnProfile = (
-  event: UpdateDataOnProfileType,
+  data: UpdateDataOnProfileType,
   form: FormHelpers,
   dispatch: AppDispatch,
 ) => {
-  dispatch(updatingProfileInformation(event));
+  dispatch(updatingProfileInformation(data));
   form.resetForm();
 };
 
