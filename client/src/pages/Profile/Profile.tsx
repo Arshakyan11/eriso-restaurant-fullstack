@@ -20,21 +20,31 @@ const Profile = () => {
         <Formik
           validationSchema={userDataEditing}
           initialValues={initialValues}
-          onSubmit={(e, form) => updateDataOnProfile(e, form, dispatch)}
+          onSubmit={(e, form) =>
+            updateDataOnProfile(
+              {
+                email: e.email,
+                password: e.password,
+                newPassword: e.newPassword,
+              },
+              form,
+              dispatch,
+            )
+          }
         >
           <Form>
             <fieldset>
               <legend>
-                <ErrorMessage name="userEmail" component="div" />
+                <ErrorMessage name="email" component="div" />
               </legend>
-              <Field name="userEmail" placeholder="Your Email" type="text" />
+              <Field name="email" placeholder="Your Email" type="text" />
             </fieldset>
             <fieldset>
               <legend>
-                <ErrorMessage name="userOldPass" component="div" />
+                <ErrorMessage name="password" component="div" />
               </legend>
               <Field
-                name="userOldPass"
+                name="password"
                 placeholder="Your Last Password"
                 type={isHideemOld ? "password" : "text"}
               />
@@ -47,10 +57,10 @@ const Profile = () => {
             </fieldset>
             <fieldset>
               <legend>
-                <ErrorMessage name="userNewPass" component="div" />
+                <ErrorMessage name="newPassword" component="div" />
               </legend>
               <Field
-                name="userNewPass"
+                name="newPassword"
                 placeholder="New Password"
                 type={isHiden ? "password" : "text"}
               />
@@ -63,10 +73,10 @@ const Profile = () => {
             </fieldset>
             <fieldset>
               <legend>
-                <ErrorMessage name="userNewPassRepeat" component="div" />
+                <ErrorMessage name="newPasswordRepeat" component="div" />
               </legend>
               <Field
-                name="userNewPassRepeat"
+                name="newPasswordRepeat"
                 placeholder="Repeat New Password"
                 type={isHiden ? "password" : "text"}
               />

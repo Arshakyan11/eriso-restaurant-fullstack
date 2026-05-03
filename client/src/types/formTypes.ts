@@ -1,4 +1,4 @@
-import type { UserInfoType, WishList } from "./apiHandlingTypes";
+import type { UserInfoType } from "./apiHandlingTypes";
 
 export interface FormHelpers {
   resetForm: () => void;
@@ -41,10 +41,9 @@ export interface ReserveTableInfoType {
 }
 
 export interface UpdateDataOnProfileType {
-  userEmail: any;
-  userOldPass: string;
-  userNewPass: string;
-  userNewPassRepeat: string;
+  email: any;
+  password: string;
+  newPassword: string;
 }
 
 export interface CheckingUserType {

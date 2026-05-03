@@ -9,10 +9,10 @@ interface ProfileSliceType {
   error: null | string;
   loading: boolean;
   initialValues: {
-    userEmail: string;
-    userOldPass: string;
-    userNewPass: string;
-    userNewPassRepeat: string;
+    email: string;
+    password: string;
+    newPassword: string;
+    newPasswordRepeat: string;
   };
 }
 
@@ -22,10 +22,10 @@ const initialState: ProfileSliceType = {
   error: null,
   loading: false,
   initialValues: {
-    userEmail: userInfo?.email || "",
-    userOldPass: "",
-    userNewPass: "",
-    userNewPassRepeat: "",
+    email: userInfo?.email || "",
+    password: "",
+    newPassword: "",
+    newPasswordRepeat: "",
   },
 };
 
@@ -40,7 +40,7 @@ const ProfileSlice = createSlice({
       state.isHideemOld = action.payload;
     },
     setEmailManualy: (state, action: PayloadAction<string>) => {
-      state.initialValues.userEmail = action.payload;
+      state.initialValues.email = action.payload;
     },
   },
   extraReducers: (builder) => {

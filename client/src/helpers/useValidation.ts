@@ -77,16 +77,16 @@ export type UserReservationValidationType = InferType<
 >;
 
 export const userDataEditing = object({
-  userEmail: string()
+  email: string()
     .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, "Pls enter valid email")
     .required("Pls write Your Email"),
-  userOldPass: string().required("Pls Write Your Old Password"),
-  userNewPass: string()
+  password: string().required("Pls Write Your Old Password"),
+  newPassword: string()
     .min(6, "Write Minimum 6 symbols")
     .max(16, "Write Maximum 16 symbols")
     .required("Pls write New password"),
-  userNewPassRepeat: string()
-    .oneOf([ref("userNewPass")], "The password is not the same")
+  newPasswordRepeat: string()
+    .oneOf([ref("newPassword")], "The password is not the same")
     .required("Pls Repeat Your New Passowrd"),
 });
 

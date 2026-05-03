@@ -25,7 +25,11 @@ import {
   spreedPropertiesWidely,
 } from "../../helpers/sendData";
 import { extractErrorMessage } from "../../services/instance";
-import { loginUserApi, registerUserApi } from "../../services/auth.service";
+import {
+  changePasswordApi,
+  loginUserApi,
+  registerUserApi,
+} from "../../services/auth.service";
 import {
   deleteReservationApi,
   makeReservationApi,
@@ -254,46 +258,27 @@ export const deletingReservationTime = createAsyncThunk<
       dispatch(setUserInfo(updatedData));
       return updatedData;
     } catch (error) {
-      return rejectWithValue("Error while deleting Reservation");
+      return rejectWithValue(
+        extractErrorMessage(error, "Error while deleting Reservation"),
+      );
     }
   },
 );
 
 export const updatingProfileInformation = createAsyncThunk<
-  void,
+  { message: string },
   UpdateDataOnProfileType,
   { rejectValue: string; dispatch: AppDispatch }
->(
-  "profile/updatingProfileInformation",
-  async (data, { rejectWithValue, dispatch }) => {
-    try {
-      const userInfo = getLocalUserStrict();
-      if (!userInfo) {
-        return rejectWithValue("User not logged in");
-      }
-      if (
-        data.userOldPass === userInfo.password &&
-        userInfo.password !== data.userNewPass
-      ) {
-        patchingUserDataToLocal(userInfo.id, {
-          password: data.userNewPass,
-        });
-        userInfo.password = data.userNewPass;
-        setingLocalStorageUserinfo(dispatch, userInfo);
-        notifyForSMth("Password Changed Successfuly");
-      } else if (
-        data.userOldPass === userInfo.password &&
-        userInfo.password === data.userNewPass
-      ) {
-        notifyForError("Password must be different from your current password");
-      } else {
-        notifyForError("The current password is incorrect");
-      }
-    } catch (error) {
-      return rejectWithValue("Error 404");
-    }
-  },
-);
+>("profile/updatingProfileInformation", async (data, { rejectWithValue }) => {
+  try {
+    const result = await changePasswordApi(data);
+    return result;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(error, "Error while changing password"),
+    );
+  }
+});
 
 export const addingWishlistToData = createAsyncThunk<
   WishList[],

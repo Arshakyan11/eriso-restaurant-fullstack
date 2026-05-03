@@ -99,12 +99,15 @@ export const reserveTableInfo = async (
   form.resetForm();
 };
 
-export const updateDataOnProfile = (
+export const updateDataOnProfile = async (
   data: UpdateDataOnProfileType,
   form: FormHelpers,
   dispatch: AppDispatch,
 ) => {
-  dispatch(updatingProfileInformation(data));
+  await run({
+    action: () => dispatch(updatingProfileInformation(data)).unwrap(),
+    successMessage: (res) => res.message,
+  });
   form.resetForm();
 };
 
