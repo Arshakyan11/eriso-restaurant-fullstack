@@ -10,13 +10,15 @@ import {
   changingCountOfItem,
   deleteWishListFromData,
 } from "../../store/api/api";
-import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getallWatchlistInfo } from "../../store/WishlistSlice/WishlistSlice";
+import { useAsyncAction } from "../../hooks/useAsyncAction";
 const BuyingItemsList = () => {
   const dispatch = useAppDispatch();
   const { isOpenModal } = useAppSelector(getAllMiniBuyingListInfo);
-  const { userInfo } = useAppSelector(getUserInfo);
+  const { wishlist, totalCheckPrice } = useAppSelector(getallWatchlistInfo);
   const modalRef = useRef<HTMLDivElement>(null);
+  const run = useAsyncAction();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -40,7 +42,7 @@ const BuyingItemsList = () => {
   useEffect(() => {
     dispatch(setModalOpenType(false));
   }, [dispatch]);
-  if (!userInfo) return null;
+  if (!wishlist) return null;
   return (
     <div className="allItems">
       <div
@@ -55,10 +57,10 @@ const BuyingItemsList = () => {
       {isOpenModal ? (
         <div className="modalContainer">
           <div className="modal" ref={modalRef}>
-            {userInfo.wishList.length > 0 ? (
+            {wishlist.length > 0 ? (
               <>
                 <div className="selectedItems">
-                  {userInfo.wishList.map((elm, ind) => {
+                  {wishlist.map((elm, ind) => {
                     return (
                       <div className="eachItem" key={ind}>
                         <img src={elm.img} alt="foodImg" />
@@ -68,31 +70,45 @@ const BuyingItemsList = () => {
                           <div className="buttons">
                             <p
                               onClick={() =>
-                                dispatch(deleteWishListFromData(elm.id))
+                                run({
+                                  action: () =>
+                                    dispatch(
+                                      deleteWishListFromData(elm.id),
+                                    ).unwrap(),
+                                  successMessage: (res) => res.message,
+                                })
                               }
                             >
                               <FaTrash />
                             </p>
                             <p
                               onClick={() =>
-                                dispatch(
-                                  changingCountOfItem({
-                                    mealId: elm.id,
-                                    type: "decrement",
-                                  }),
-                                )
+                                run({
+                                  action: () =>
+                                    dispatch(
+                                      changingCountOfItem({
+                                        mealId: elm.id,
+                                        type: "decrement",
+                                      }),
+                                    ).unwrap(),
+                                  successMessage: (res) => res.message,
+                                })
                               }
                             >
                               <FaMinus />
                             </p>
                             <p
                               onClick={() =>
-                                dispatch(
-                                  changingCountOfItem({
-                                    mealId: elm.id,
-                                    type: "increment",
-                                  }),
-                                )
+                                run({
+                                  action: () =>
+                                    dispatch(
+                                      changingCountOfItem({
+                                        mealId: elm.id,
+                                        type: "increment",
+                                      }),
+                                    ).unwrap(),
+                                  successMessage: (res) => res.message,
+                                })
                               }
                             >
                               <FaPlus />
@@ -113,7 +129,7 @@ const BuyingItemsList = () => {
             )}
             <div className="totalCount">
               <p>Total</p>
-              <p>{`${userInfo.totalCheckPrice}$`}</p>
+              <p>{`${totalCheckPrice}$`}</p>
             </div>
           </div>
         </div>

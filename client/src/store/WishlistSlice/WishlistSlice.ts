@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addingWishlistToData, deleteWishListFromData } from "../api/api";
+import {
+  addingWishlistToData,
+  deleteWishListFromData,
+  getWishlistThunk,
+} from "../api/api";
 import type { RootState } from "../store";
 import type { WishList } from "../../types";
 
@@ -53,17 +57,17 @@ const WishlistSlice = createSlice({
     });
 
     // get Wishlist
-    builder.addCase(addingWishlistToData.pending, (state) => {
+    builder.addCase(getWishlistThunk.pending, (state) => {
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(addingWishlistToData.fulfilled, (state, action) => {
+    builder.addCase(getWishlistThunk.fulfilled, (state, action) => {
       state.wishlist = action.payload.wishList;
       state.totalCheckPrice = action.payload.totalCheckPrice;
       state.error = null;
       state.loading = false;
     });
-    builder.addCase(addingWishlistToData.rejected, (state, action) => {
+    builder.addCase(getWishlistThunk.rejected, (state, action) => {
       state.error = action.payload ?? "Something Went Wrong!!";
       state.loading = false;
     });

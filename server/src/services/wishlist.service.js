@@ -61,7 +61,7 @@ export const deleteWishlistItemService = async (userID, itemID) => {
   return {
     message: "Item removed from wishlist",
     wishList: user.wishList,
-    totalCheckPrice: Number(totalCheckPrice.toFixed(3)),
+    totalCheckPrice: Number(user.totalCheckPrice.toFixed(3)),
   };
 };
 

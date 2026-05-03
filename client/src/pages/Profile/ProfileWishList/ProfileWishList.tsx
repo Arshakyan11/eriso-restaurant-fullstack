@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styles from "./ProfileWishList.module.scss";
 import {
   changingCountOfItem,
@@ -7,30 +6,25 @@ import {
 import { Link } from "react-router-dom";
 import { burgerProfile } from "../../../components/Images";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
-import { getUserInfo, setUserInfo } from "../../../store/AuthSlice/AuthSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import ProfileNotLogedMesComponent from "../../../components/ProfileNotLogedMesComponent/ProfileNotLogedMesComponent";
 import { ROUTES } from "../../../routes/Routes";
 import { useAsyncAction } from "../../../hooks/useAsyncAction";
+import { getallWatchlistInfo } from "../../../store/WishlistSlice/WishlistSlice";
 const ProfileWishList = () => {
-  const { userInfo } = useAppSelector(getUserInfo);
+  const { wishlist } = useAppSelector(getallWatchlistInfo);
   const dispatch = useAppDispatch();
   const run = useAsyncAction();
-  useEffect(() => {
-    if (userInfo) {
-      setUserInfo(userInfo);
-    }
-  }, [userInfo]);
 
-  if (!userInfo) {
+  if (!wishlist) {
     return <ProfileNotLogedMesComponent />;
   }
   return (
     <div className={styles.wishListSec}>
       <div className={styles.wishedItems}>
-        {userInfo.wishList?.length > 0 ? (
+        {wishlist.length > 0 ? (
           <div className={styles.allWishedItemsOnly}>
-            {userInfo.wishList.map((elm, ind) => {
+            {wishlist.map((elm, ind) => {
               return (
                 <div className={styles.wishedItemEach} key={ind}>
                   <img src={elm.img} alt="img" className={styles.mealImg} />

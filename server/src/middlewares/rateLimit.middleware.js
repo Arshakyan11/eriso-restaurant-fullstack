@@ -2,7 +2,7 @@ import rateLimit from "express-rate-limit";
 
 export const applimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 50,
+  max: 500,
   message: "Too many requests, please try again later",
 });
 export const loginLimiter = rateLimit({

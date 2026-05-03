@@ -315,7 +315,7 @@ export const deleteWishListFromData = createAsyncThunk<
     return response;
   } catch (error) {
     return rejectWithValue(
-      extractErrorMessage(error, "Error wFhile deleting data from WatchList"),
+      extractErrorMessage(error, "Error while deleting data from WatchList"),
     );
   }
 });
@@ -332,7 +332,7 @@ export const changingCountOfItem = createAsyncThunk<
       return result;
     } catch (error) {
       return rejectWithValue(
-        extractErrorMessage(error, "Error wFhile changing Count of item"),
+        extractErrorMessage(error, "Error while changing Count of item"),
       );
     }
   },
