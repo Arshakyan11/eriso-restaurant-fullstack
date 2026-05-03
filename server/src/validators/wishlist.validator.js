@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const wishlistSchema = z.object({
+  id: z.string().min(1, "ID is required"),
   name: z
     .string()
     .min(2, "Name must be at least 2 characters")

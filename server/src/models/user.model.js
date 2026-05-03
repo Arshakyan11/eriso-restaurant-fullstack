@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   wishList: { type: [Object], default: [] },
-  totalCheckPrice: { type: String, default: "0.000" },
+  totalCheckPrice: { type: Number, default: 0 },
   reservation: {
     address: String,
     date: String,

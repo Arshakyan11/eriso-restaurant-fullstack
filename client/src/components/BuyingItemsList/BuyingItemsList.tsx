@@ -78,8 +78,8 @@ const BuyingItemsList = () => {
                                 dispatch(
                                   changingCountOfItem({
                                     mealId: elm.id,
-                                    type: -1,
-                                  })
+                                    type: "decrement",
+                                  }),
                                 )
                               }
                             >
@@ -90,8 +90,8 @@ const BuyingItemsList = () => {
                                 dispatch(
                                   changingCountOfItem({
                                     mealId: elm.id,
-                                    type: 1,
-                                  })
+                                    type: "increment",
+                                  }),
                                 )
                               }
                             >
@@ -113,7 +113,7 @@ const BuyingItemsList = () => {
             )}
             <div className="totalCount">
               <p>Total</p>
-              <p>{userInfo.totalCheckPrice}$</p>
+              <p>{`${userInfo.totalCheckPrice}$`}</p>
             </div>
           </div>
         </div>

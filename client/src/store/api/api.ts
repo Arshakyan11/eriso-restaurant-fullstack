@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { notifyForError, notifyForSMth } from "../../helpers/notifyUser";
+import { notifyForSMth } from "../../helpers/notifyUser";
 import { nanoid } from "nanoid";
 import { setUserInfo } from "../AuthSlice/AuthSlice";
 import type {
+  AddingWishlistResponse,
   DataOflittleMenuType,
   DataOfSearchingMenuType,
   EdamamHit,
@@ -34,6 +35,11 @@ import {
   deleteReservationApi,
   makeReservationApi,
 } from "../../services/reservation.service";
+import {
+  addToWishlistpi,
+  deleteItemFromWishlist,
+  editCountOfItemApi,
+} from "../../services/wishlist.service";
 
 const instant = axios.create({
   timeoutErrorMessage: "Error 404",
@@ -207,35 +213,22 @@ export const loginUser = createAsyncThunk<
 });
 
 export const addingReserveTable = createAsyncThunk<
-  UserInfoType,
+  { message: string },
   ReserveTableInfoType,
   { rejectValue: string; dispatch: AppDispatch }
->(
-  "reservation/addingReserveTable",
-  async (obj, { dispatch, rejectWithValue }) => {
-    try {
-      await makeReservationApi(obj);
-      const userInfo = getLocalUserStrict();
-      if (!userInfo) throw new Error("No user");
-
-      const updatedData = {
-        ...userInfo,
-        reservation: obj,
-      };
-      localStorage.setItem("userInfo", JSON.stringify(updatedData));
-      dispatch(setUserInfo(updatedData));
-
-      return updatedData;
-    } catch (error) {
-      return rejectWithValue(
-        extractErrorMessage(
-          error,
-          "Someting went wrong while adding reservation!",
-        ),
-      );
-    }
-  },
-);
+>("reservation/addingReserveTable", async (obj, { rejectWithValue }) => {
+  try {
+    const result = await makeReservationApi(obj);
+    return result;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(
+        error,
+        "Someting went wrong while adding reservation!",
+      ),
+    );
+  }
+});
 
 export const deletingReservationTime = createAsyncThunk<
   UserInfoType,
@@ -281,132 +274,49 @@ export const updatingProfileInformation = createAsyncThunk<
 });
 
 export const addingWishlistToData = createAsyncThunk<
-  WishList[],
+  AddingWishlistResponse,
   WishList,
   { rejectValue: string; dispatch: AppDispatch }
->(
-  "wishlist/addingWishlistToData",
-  async (wishObj, { dispatch, rejectWithValue }) => {
-    try {
-      const userInfo = getLocalUserStrict();
-      if (!userInfo) {
-        return rejectWithValue("User not logged in");
-      }
-      const checkingExistingMeal = await localStorageUsers
-        .get<UserInfoType>(`/${userInfo.id}`)
-        .then((res) => res.data?.wishList || []);
-      const isExisting = checkingExistingMeal.find(
-        (elm) => elm.name === wishObj.name && elm.calories === wishObj.calories,
-      );
-      if (!isExisting) {
-        const updatedWishlist = [...(userInfo.wishList || []), wishObj];
-        let totalCount = updatedWishlist.reduce(
-          (acc, elm) => acc + parseFloat(elm.price),
-          0,
-        );
-        const newUserInfo = {
-          wishList: updatedWishlist,
-          totalCheckPrice: totalCount.toFixed(3),
-        };
-        await patchingUserDataToLocal(userInfo.id, newUserInfo);
-        setingLocalStorageUserinfo(dispatch, {
-          ...userInfo,
-          ...newUserInfo,
-        });
-        notifyForSMth("Successfully added to Cart");
-        return updatedWishlist;
-      } else {
-        notifyForError("Item is already on wishlist!");
-        return userInfo.wishList;
-      }
-    } catch (error) {
-      return rejectWithValue("Error while adding Wishlist");
-    }
-  },
-);
+>("wishlist/addingWishlistToData", async (wishObj, { rejectWithValue }) => {
+  try {
+    const result = await addToWishlistpi(wishObj);
+    return result;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(error, "Error while adding Wishlist"),
+    );
+  }
+});
 
 export const deleteWishListFromData = createAsyncThunk<
-  WishList[],
+  AddingWishlistResponse,
   string,
   { rejectValue: string; dispatch: AppDispatch }
->(
-  "wishlist/deleteWishListFromData",
-  async (mealId, { dispatch, rejectWithValue }) => {
-    try {
-      const userInfo = getLocalUserStrict();
-      if (!userInfo) {
-        return rejectWithValue("User not logged in");
-      }
-      const response = await localStorageUsers
-        .get<UserInfoType>(`/${userInfo.id}`)
-        .then((res) => {
-          return res.data;
-        });
-      const newWishList = response.wishList.filter((elm) => elm.id !== mealId);
-      let totalCount = newWishList.reduce(
-        (acc, elm) => acc + +elm.price * +elm.count,
-        0,
-      );
-      const newUserInfo = {
-        wishList: newWishList,
-        totalCheckPrice: totalCount.toFixed(3),
-      };
-      await patchingUserDataToLocal(userInfo.id, newUserInfo);
-      setingLocalStorageUserinfo(dispatch, {
-        ...userInfo,
-        ...newUserInfo,
-      });
-      notifyForError("Item Removed from Wishlist");
-      return newWishList;
-    } catch (error) {
-      return rejectWithValue("Error wFhile deleting data from WatchList");
-    }
-  },
-);
+>("wishlist/deleteWishListFromData", async (mealId, { rejectWithValue }) => {
+  try {
+    const response = await deleteItemFromWishlist(mealId);
+    return response;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(error, "Error wFhile deleting data from WatchList"),
+    );
+  }
+});
 
 export const changingCountOfItem = createAsyncThunk<
-  string,
-  { mealId: string; type: number },
+  AddingWishlistResponse,
+  { mealId: string; type: string },
   { rejectValue: string; dispatch: AppDispatch }
 >(
   "miniBuyingList/changingCountOfItem",
-  async ({ mealId, type }, { dispatch, rejectWithValue }) => {
+  async ({ mealId, type }, { rejectWithValue }) => {
     try {
-      const userInfo = getLocalUserStrict();
-      if (!userInfo) {
-        return rejectWithValue("User not logged in");
-      }
-      const response = await localStorageUsers
-        .get<UserInfoType>(`/${userInfo.id}`)
-        .then((res) => {
-          return res.data.wishList;
-        });
-      const result = response.map((elm) => {
-        if (
-          elm.id === mealId &&
-          elm.count + type > 0 &&
-          elm.count + type <= 10
-        ) {
-          elm.count += +type;
-        }
-        return elm;
-      });
-      let totalCount = result.reduce(
-        (acc, elm) => acc + parseFloat(elm.price) * +elm.count,
-        0,
-      );
-      let newUserInfo = {
-        wishList: result,
-        totalCheckPrice: totalCount.toFixed(3),
-      };
-      await patchingUserDataToLocal(userInfo.id, newUserInfo);
-      setingLocalStorageUserinfo(dispatch, {
-        ...userInfo,
-        ...newUserInfo,
-      });
-      return "Success";
+      const result = await editCountOfItemApi(mealId, type);
+      return result;
     } catch (error) {
-      return rejectWithValue("Error Happened while  changing Count");
+      return rejectWithValue(
+        extractErrorMessage(error, "Error wFhile changing Count of item"),
+      );
     }
   },
 );

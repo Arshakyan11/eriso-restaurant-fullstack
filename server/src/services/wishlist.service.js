@@ -10,9 +10,9 @@ export const getWishlistService = async (userID) => {
 };
 
 export const updateWishlistService = async (userWishList, userID) => {
-  const { name, price, calories, count, img } = userWishList || {};
+  const { id, name, price, calories, count, img } = userWishList || {};
 
-  if (!name || !price || !calories || count == null || !img) {
+  if ((!id, !name || !price || !calories || count == null || !img)) {
     errorThrower("All required fields must be provided");
   }
   const user = await User.findById(userID);
@@ -20,12 +20,13 @@ export const updateWishlistService = async (userWishList, userID) => {
   if (!user) {
     errorThrower("User not found", 404);
   }
-  const existingItem = user.wishList.find((elm) => elm.name === name);
+  const existingItem = user.wishList.find((elm) => elm.id === id);
   if (existingItem) {
     errorThrower("Item is already in Wishlist", 400);
   }
+  user.totalCheckPrice += +price;
   user.wishList.push({
-    id: crypto.randomUUID(),
+    id,
     name,
     price,
     calories,
@@ -36,6 +37,7 @@ export const updateWishlistService = async (userWishList, userID) => {
   return {
     message: "Item successfully added to wishlist",
     wishList: user.wishList,
+    totalCheckPrice: Number(user.totalCheckPrice.toFixed(3)),
   };
 };
 
@@ -52,8 +54,13 @@ export const deleteWishlistItemService = async (userID, itemID) => {
     errorThrower("Item not found", 404);
   }
   user.wishList = user.wishList.filter((item) => item.id !== itemID);
+  user.totalCheckPrice -= existingItem.price;
   await user.save();
-  return { message: "Item removed from wishlist" };
+  return {
+    message: "Item removed from wishlist",
+    wishList: user.wishList,
+    totalCheckPrice: Number(totalCheckPrice.toFixed(3)),
+  };
 };
 
 export const editCountOfItemService = async (userID, itemID, action) => {

@@ -5,12 +5,14 @@ import type { WishList } from "../../types";
 
 interface WishlistSliceType {
   wishlist: WishList[];
+  totalCheckPrice: Number;
   loading: boolean;
   error: null | string;
 }
 
 const initialState: WishlistSliceType = {
   wishlist: [],
+  totalCheckPrice: 0,
   loading: false,
   error: null,
 };
@@ -27,7 +29,8 @@ const WishlistSlice = createSlice({
     builder.addCase(addingWishlistToData.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
-      state.wishlist = action.payload;
+      state.wishlist = action.payload.wishList;
+      state.totalCheckPrice = action.payload.totalCheckPrice;
     });
     builder.addCase(addingWishlistToData.rejected, (state, action) => {
       state.loading = false;
@@ -38,7 +41,8 @@ const WishlistSlice = createSlice({
       state.error = null;
     });
     builder.addCase(deleteWishListFromData.fulfilled, (state, action) => {
-      state.wishlist = action.payload;
+      state.wishlist = action.payload.wishList;
+      state.totalCheckPrice = action.payload.totalCheckPrice;
       state.error = null;
       state.loading = false;
     });

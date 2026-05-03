@@ -66,6 +66,13 @@ export interface WishList {
   calories: number;
 }
 
+export interface AddingWishlistResponse {
+  message: string;
+  wishList: WishList[];
+  totalCheckPrice: Number;
+}
+
+
 export interface ReservationType {
   address: string;
   date: string;
@@ -77,7 +84,7 @@ export interface UserInfoType {
   id: string;
   password: string;
   phoneNumber: string;
-  totalCheckPrice: string;
+  totalCheckPrice: Number;
   userName: string;
   wishList: WishList[];
   reservation?: ReservationType;

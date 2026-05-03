@@ -1,14 +1,19 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { changingCountOfItem } from "../api/api";
 import type { RootState } from "../store";
+import type { WishList } from "../../types";
 
 interface MiniBuyingListType {
   isOpenModal: boolean;
   loading: boolean;
   error: string | null;
+  wishlist: WishList[];
+  totalCheckPrice: Number;
 }
 
 const initialState: MiniBuyingListType = {
+  wishlist: [],
+  totalCheckPrice: 0,
   isOpenModal: false,
   loading: false,
   error: null,
@@ -27,9 +32,11 @@ const MiniBuyingList = createSlice({
       state.loading = true;
       state.error = null;
     });
-    builder.addCase(changingCountOfItem.fulfilled, (state, _) => {
+    builder.addCase(changingCountOfItem.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null;
+      state.wishlist = action.payload.wishList;
+      state.totalCheckPrice = action.payload.totalCheckPrice;
     });
     builder.addCase(changingCountOfItem.rejected, (state, action) => {
       state.loading = false;

@@ -9,16 +9,17 @@ export const addToWishlistpi = async (data: WishList) => {
   return res.data;
 };
 
-export const editCountOfItemAPi = async (id: string) => {
+export const editCountOfItemApi = async (id: string, type: string) => {
   const res = await apiClient.patch(
-    `${import.meta.env.VITE_BACKEND_LINK}/wishlist`,
+    `${import.meta.env.VITE_BACKEND_LINK}/wishlist/${id}`,
+    { action: type },
   );
   return res.data;
 };
 
 export const deleteItemFromWishlist = async (id: string) => {
   const res = await apiClient.delete(
-    `${import.meta.env.VITE_BACKEND_LINK}/wishlist`,
+    `${import.meta.env.VITE_BACKEND_LINK}/wishlist/${id}`,
   );
   return res.data;
 };

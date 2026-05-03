@@ -11,9 +11,11 @@ import { getUserInfo, setUserInfo } from "../../../store/AuthSlice/AuthSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import ProfileNotLogedMesComponent from "../../../components/ProfileNotLogedMesComponent/ProfileNotLogedMesComponent";
 import { ROUTES } from "../../../routes/Routes";
+import { useAsyncAction } from "../../../hooks/useAsyncAction";
 const ProfileWishList = () => {
   const { userInfo } = useAppSelector(getUserInfo);
   const dispatch = useAppDispatch();
+  const run = useAsyncAction();
   useEffect(() => {
     if (userInfo) {
       setUserInfo(userInfo);
@@ -40,27 +42,44 @@ const ProfileWishList = () => {
                     </div>
                     <div className={styles.buttons}>
                       <p
-                        onClick={() => dispatch(deleteWishListFromData(elm.id))}
+                        onClick={() =>
+                          run({
+                            action: () =>
+                              dispatch(deleteWishListFromData(elm.id)).unwrap(),
+                            successMessage: (res) => res.message,
+                          })
+                        }
                       >
                         <FaTrash />
                       </p>
                       <p
                         onClick={() =>
-                          dispatch(
-                            changingCountOfItem({
-                              mealId: elm.id,
-                              type: -1,
-                            })
-                          )
+                          run({
+                            action: () =>
+                              dispatch(
+                                changingCountOfItem({
+                                  mealId: elm.id,
+                                  type: "decrement",
+                                }),
+                              ).unwrap(),
+                            successMessage: (res) => res.message,
+                          })
                         }
                       >
                         <FaMinus />
                       </p>
                       <p
                         onClick={() =>
-                          dispatch(
-                            changingCountOfItem({ mealId: elm.id, type: 1 })
-                          )
+                          run({
+                            action: () =>
+                              dispatch(
+                                changingCountOfItem({
+                                  mealId: elm.id,
+                                  type: "increment",
+                                }),
+                              ).unwrap(),
+                            successMessage: (res) => res.message,
+                          })
                         }
                       >
                         <FaPlus />

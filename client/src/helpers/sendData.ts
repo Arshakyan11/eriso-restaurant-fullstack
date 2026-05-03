@@ -94,7 +94,7 @@ export const reserveTableInfo = async (
 ) => {
   await run({
     action: () => dispatch(addingReserveTable(data)).unwrap(),
-    successMessage: () => "Reservation created successfully",
+    successMessage: (res) => res.message,
   });
   form.resetForm();
 };
@@ -123,7 +123,10 @@ export const sendWishListData = (
 });
 
 export const sendingWatchList = (dispatch: AppDispatch, item: WishList) => {
-  dispatch(addingWishlistToData(item));
+  return run({
+    action: () => dispatch(addingWishlistToData(item)).unwrap(),
+    successMessage: (res) => res.message,
+  });
 };
 
 export function spreedPropertiesWidely(elm: EdamamHitForSearch) {
