@@ -6,7 +6,10 @@ export const getWishlistService = async (userID) => {
   if (!result) {
     errorThrower("User doesnt found!!");
   }
-  return result.wishList;
+  return {
+    wishList: result.wishList,
+    totalCheckPrice: result.totalCheckPrice,
+  };
 };
 
 export const updateWishlistService = async (userWishList, userID) => {

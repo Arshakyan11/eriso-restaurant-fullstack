@@ -28,3 +28,10 @@ export const changePasswordApi = async (data: UpdateDataOnProfileType) => {
   );
   return res.data;
 };
+
+export const getUserInfoApi = async () => {
+  const res = await apiClient.get(
+    `${import.meta.env.VITE_BACKEND_LINK}/auth/me`,
+  );
+  return res.data;
+};

@@ -28,6 +28,7 @@ import {
 import { extractErrorMessage } from "../../services/instance";
 import {
   changePasswordApi,
+  getUserInfoApi,
   loginUserApi,
   registerUserApi,
 } from "../../services/auth.service";
@@ -39,6 +40,7 @@ import {
   addToWishlistpi,
   deleteItemFromWishlist,
   editCountOfItemApi,
+  getWishlist,
 } from "../../services/wishlist.service";
 
 const instant = axios.create({
@@ -156,28 +158,12 @@ export const fetchingGlobalMenu = createAsyncThunk<
   }
 });
 
-const localStorageUsers = axios.create({
-  baseURL: "http://localhost:8000/auth/signup",
-  timeout: 10000,
-  timeoutErrorMessage: "Too much time for fetching data",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
 export const setingLocalStorageUserinfo = (
   dispatch: AppDispatch,
   data: UserInfoType,
 ) => {
   localStorage.setItem("userInfo", JSON.stringify(data));
   dispatch(setUserInfo(data));
-};
-
-const patchingUserDataToLocal = (id: string, data: Partial<UserInfoType>) => {
-  return axios.patch(`http://localhost:8000/auth/signup/${id}`, data, {
-    timeout: 10000,
-    timeoutErrorMessage: "Too much time for fetching data",
-  });
 };
 
 export const registerUser = createAsyncThunk<
@@ -207,6 +193,19 @@ export const loginUser = createAsyncThunk<
     // dispatch(setUserInfoManualy(lastResult));
     // dispatch(setUserInfo(lastResult));
     return res;
+  } catch (error) {
+    return rejectWithValue(extractErrorMessage(error, "User not found!!!"));
+  }
+});
+
+export const fetchCurrentUser = createAsyncThunk<
+  UserInfoType,
+  void,
+  { rejectValue: string }
+>("authentication/fetchCurrentUser", async (_, { rejectWithValue }) => {
+  try {
+    const result = await getUserInfoApi();
+    return result;
   } catch (error) {
     return rejectWithValue(extractErrorMessage(error, "User not found!!!"));
   }
@@ -269,6 +268,24 @@ export const updatingProfileInformation = createAsyncThunk<
   } catch (error) {
     return rejectWithValue(
       extractErrorMessage(error, "Error while changing password"),
+    );
+  }
+});
+
+export const getWishlistThunk = createAsyncThunk<
+  {
+    wishList: WishList[];
+    totalCheckPrice: Number;
+  },
+  void,
+  { rejectValue: string }
+>("wishlist/getWishlistThunk", async (_, { rejectWithValue }) => {
+  try {
+    const result = await getWishlist();
+    return result;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(error, "Error while getting Wishlist"),
     );
   }
 });

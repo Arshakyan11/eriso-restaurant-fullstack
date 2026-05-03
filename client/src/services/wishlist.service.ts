@@ -23,3 +23,10 @@ export const deleteItemFromWishlist = async (id: string) => {
   );
   return res.data;
 };
+
+export const getWishlist = async () => {
+  const res = await apiClient.get(
+    `${import.meta.env.VITE_BACKEND_LINK}/wishlist/`,
+  );
+  return res.data;
+};

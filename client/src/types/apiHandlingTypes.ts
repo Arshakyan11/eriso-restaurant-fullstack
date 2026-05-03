@@ -72,7 +72,6 @@ export interface AddingWishlistResponse {
   totalCheckPrice: Number;
 }
 
-
 export interface ReservationType {
   address: string;
   date: string;
@@ -81,8 +80,6 @@ export interface ReservationType {
 }
 export interface UserInfoType {
   email: string;
-  id: string;
-  password: string;
   phoneNumber: string;
   totalCheckPrice: Number;
   userName: string;

@@ -36,6 +36,7 @@ const WishlistSlice = createSlice({
       state.loading = false;
       state.error = action.payload ?? "Something Went Wrong!!";
     });
+    //delete
     builder.addCase(deleteWishListFromData.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -47,6 +48,22 @@ const WishlistSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(deleteWishListFromData.rejected, (state, action) => {
+      state.error = action.payload ?? "Something Went Wrong!!";
+      state.loading = false;
+    });
+
+    // get Wishlist
+    builder.addCase(addingWishlistToData.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(addingWishlistToData.fulfilled, (state, action) => {
+      state.wishlist = action.payload.wishList;
+      state.totalCheckPrice = action.payload.totalCheckPrice;
+      state.error = null;
+      state.loading = false;
+    });
+    builder.addCase(addingWishlistToData.rejected, (state, action) => {
       state.error = action.payload ?? "Something Went Wrong!!";
       state.loading = false;
     });
