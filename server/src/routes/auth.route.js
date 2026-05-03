@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getInfoUser,
   loginUser,
   registerUser,
   resetPassword,
@@ -22,9 +23,6 @@ router.post(
   validate(resetPasswordSchema),
   resetPassword,
 );
-
-router.get("/me", authMiddleware, (req, res) => {
-  res.json({ message: "Authorized", user: req.user });
-});
+router.get("/me", authMiddleware, getInfoUser);
 
 export default router;

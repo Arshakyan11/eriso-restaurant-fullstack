@@ -78,3 +78,12 @@ export const resetPasswordService = async (data) => {
     message: "Password has been changed successfully",
   };
 };
+
+export const getInfo = async (userID) => {
+  const user = await User.findById({ _id: userID });
+  if (!user) {
+    errorThrower("User not found", 404);
+  }
+  const { password: _, __v, _id, ...mainResult } = user.toObject();
+  return mainResult;
+};

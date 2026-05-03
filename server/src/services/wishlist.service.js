@@ -16,7 +16,6 @@ export const updateWishlistService = async (userWishList, userID) => {
     errorThrower("All required fields must be provided");
   }
   const user = await User.findById(userID);
-
   if (!user) {
     errorThrower("User not found", 404);
   }

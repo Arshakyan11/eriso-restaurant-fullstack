@@ -1,4 +1,5 @@
 import {
+  getInfo,
   login,
   register,
   resetPasswordService,
@@ -28,6 +29,16 @@ export const resetPassword = async (req, res, next) => {
   try {
     const data = req.body;
     const result = await resetPasswordService(data);
+    return res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getInfoUser = async (req, res, next) => {
+  try {
+    const userID = req.user.id;
+    const result = await getInfo(userID);
     return res.status(200).json(result);
   } catch (error) {
     next(error);
