@@ -19,7 +19,7 @@ const ProfileWishList = () => {
 
   return (
     <div className={styles.wishListSec}>
-      <MainLoader isLoading={loading} />;
+      <MainLoader isLoading={loading} />
       <div className={styles.wishedItems}>
         {wishlist.length > 0 ? (
           <div className={styles.allWishedItemsOnly}>

@@ -13,6 +13,7 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const { initialValues, isHiden, isHideemOld } =
     useAppSelector(getAllProfileInfo);
+
   return (
     <div className={styles.profileSec}>
       <div className={styles.mainProfileSec}>
