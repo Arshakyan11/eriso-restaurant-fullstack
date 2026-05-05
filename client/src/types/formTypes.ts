@@ -1,5 +1,3 @@
-import type { UserInfoType } from "./apiHandlingTypes";
-
 export interface FormHelpers {
   resetForm: () => void;
 }
@@ -22,10 +20,15 @@ export interface CreateUserDataType {
   email: string;
   password: string;
 }
+export type SignInUserInfoType = {
+  userName: string;
+  phoneNumber: string;
+  email: string;
+};
 
 export type SignInDataRecievingType = {
   token: string;
-  user: UserInfoType;
+  user: SignInUserInfoType;
 };
 
 export interface CheckUserSendingDataType {

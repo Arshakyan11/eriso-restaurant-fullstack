@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { fetchCurrentUser, getLocalUserStrict } from "../api/api";
-import type { UserInfoType } from "../../types";
+import type { SignInUserInfoType } from "../../types";
 import type { RootState } from "../store";
 
 interface InitialStateType {
-  userInfo: UserInfoType | null;
+  userInfo: SignInUserInfoType | null;
   isLoading: boolean;
   error: string | null;
 }
@@ -19,7 +19,7 @@ const AuthSlice = createSlice({
   name: "authentication",
   initialState,
   reducers: {
-    setUserInfo: (state, action: PayloadAction<UserInfoType>) => {
+    setUserInfo: (state, action: PayloadAction<SignInUserInfoType>) => {
       state.userInfo = action.payload;
     },
   },

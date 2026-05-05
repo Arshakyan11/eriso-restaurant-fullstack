@@ -51,8 +51,16 @@ export const login = async (data) => {
       expiresIn: "1h",
     },
   );
-  const { password: _, __v, _id, ...lastResult } = existingUser.toObject();
-  return { user: { id: _id, ...lastResult }, token };
+  const { userName, phoneNumber, email: userEmail } = existingUser.toObject();
+
+  return {
+    user: {
+      userName,
+      phoneNumber,
+      email: userEmail,
+    },
+    token,
+  };
 };
 
 export const resetPasswordService = async (data) => {
@@ -84,6 +92,10 @@ export const getInfo = async (userID) => {
   if (!user) {
     errorThrower("User not found", 404);
   }
-  const { password: _, __v, _id, ...mainResult } = user.toObject();
-  return mainResult;
+  const { userName, phoneNumber, email } = user.toObject();
+  return {
+    userName,
+    phoneNumber,
+    email,
+  };
 };

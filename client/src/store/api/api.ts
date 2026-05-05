@@ -2,14 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { notifyForSMth } from "../../helpers/notifyUser";
 import { nanoid } from "nanoid";
-import { setUserInfo } from "../AuthSlice/AuthSlice";
 import type {
   AddingWishlistResponse,
   DataOflittleMenuType,
   DataOfSearchingMenuType,
   EdamamHit,
   EdamamHitForSearch,
-  UserInfoType,
+  ReservationType,
   WishList,
 } from "../../types/apiHandlingTypes";
 import type {
@@ -18,6 +17,7 @@ import type {
   CreateUserDataType,
   ReserveTableInfoType,
   SignInDataRecievingType,
+  SignInUserInfoType,
   UpdateDataOnProfileType,
 } from "../../types/formTypes";
 import type { AppDispatch } from "../store";
@@ -34,6 +34,7 @@ import {
 } from "../../services/auth.service";
 import {
   deleteReservationApi,
+  getReservationApi,
   makeReservationApi,
 } from "../../services/reservation.service";
 import {
@@ -51,7 +52,7 @@ const instant = axios.create({
   },
 });
 
-export function getLocalUserStrict(): UserInfoType | null {
+export function getLocalUserStrict(): SignInUserInfoType | null {
   const strSData = localStorage.getItem("userInfo");
   if (!strSData) return null;
   return JSON.parse(strSData);
@@ -158,14 +159,6 @@ export const fetchingGlobalMenu = createAsyncThunk<
   }
 });
 
-export const setingLocalStorageUserinfo = (
-  dispatch: AppDispatch,
-  data: UserInfoType,
-) => {
-  localStorage.setItem("userInfo", JSON.stringify(data));
-  dispatch(setUserInfo(data));
-};
-
 export const registerUser = createAsyncThunk<
   string,
   CreateUserDataType,
@@ -188,9 +181,6 @@ export const loginUser = createAsyncThunk<
 >("login/loginUser", async (data, { rejectWithValue }) => {
   try {
     const res = await loginUserApi(data);
-    // const { email, password } = data;
-    // dispatch(setEmailManualy(email));
-    // dispatch(setUserInfoManualy(lastResult));
     // dispatch(setUserInfo(lastResult));
     return res;
   } catch (error) {
@@ -199,7 +189,7 @@ export const loginUser = createAsyncThunk<
 });
 
 export const fetchCurrentUser = createAsyncThunk<
-  UserInfoType,
+  SignInUserInfoType,
   void,
   { rejectValue: string }
 >("authentication/fetchCurrentUser", async (_, { rejectWithValue }) => {
@@ -208,6 +198,21 @@ export const fetchCurrentUser = createAsyncThunk<
     return result;
   } catch (error) {
     return rejectWithValue(extractErrorMessage(error, "User not found!!!"));
+  }
+});
+
+export const gettingReserveTable = createAsyncThunk<
+  ReservationType,
+  void,
+  { rejectValue: string }
+>("reservation/gettingReserveTable", async (_, { rejectWithValue }) => {
+  try {
+    const result = await getReservationApi();
+    return result;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(error, "Reservation not found!!!"),
+    );
   }
 });
 
@@ -230,32 +235,19 @@ export const addingReserveTable = createAsyncThunk<
 });
 
 export const deletingReservationTime = createAsyncThunk<
-  UserInfoType,
+  { message: string },
   void,
   { rejectValue: string; dispatch: AppDispatch }
->(
-  "reservation/deletingReservationTime",
-  async (_, { rejectWithValue, dispatch }) => {
-    try {
-      await deleteReservationApi();
-      const userInfo = getLocalUserStrict();
-      if (!userInfo) {
-        return rejectWithValue("User not logged in");
-      }
-      const updatedData: UserInfoType = {
-        ...userInfo,
-      };
-      delete updatedData.reservation;
-      localStorage.setItem("userInfo", JSON.stringify(updatedData));
-      dispatch(setUserInfo(updatedData));
-      return updatedData;
-    } catch (error) {
-      return rejectWithValue(
-        extractErrorMessage(error, "Error while deleting Reservation"),
-      );
-    }
-  },
-);
+>("reservation/deletingReservationTime", async (_, { rejectWithValue }) => {
+  try {
+    const result = await deleteReservationApi();
+    return result;
+  } catch (error) {
+    return rejectWithValue(
+      extractErrorMessage(error, "Error while deleting Reservation"),
+    );
+  }
+});
 
 export const updatingProfileInformation = createAsyncThunk<
   { message: string },

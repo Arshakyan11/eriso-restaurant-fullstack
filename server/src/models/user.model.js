@@ -8,10 +8,13 @@ const userSchema = new mongoose.Schema({
   wishList: { type: [Object], default: [] },
   totalCheckPrice: { type: Number, default: 0 },
   reservation: {
-    address: String,
-    date: String,
-    count: Number,
-    tableType: String,
+    type: {
+      address: String,
+      date: String,
+      count: Number,
+      tableType: String,
+    },
+    default: null,
   },
 });
 

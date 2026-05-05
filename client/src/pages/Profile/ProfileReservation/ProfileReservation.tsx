@@ -2,24 +2,29 @@ import { useEffect } from "react";
 import styles from "./ProfileReservation.module.scss";
 import { reserveDate } from "../../../components/Images";
 import { Link } from "react-router-dom";
-import { deletingReservationTime } from "../../../store/api/api";
+import {
+  deletingReservationTime,
+  gettingReserveTable,
+} from "../../../store/api/api";
 import Aos from "aos";
-import { getUserInfo } from "../../../store/AuthSlice/AuthSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import ProfileNotLogedMesComponent from "../../../components/ProfileNotLogedMesComponent/ProfileNotLogedMesComponent";
 import { ROUTES } from "../../../routes/Routes";
+import { getAllReservationInfo } from "../../../store/ReservationSlice/ReservationSlice";
+import { useAsyncAction } from "../../../hooks/useAsyncAction";
 
 const ProfileReservation = () => {
-  const { userInfo } = useAppSelector(getUserInfo);
-  const isTrue = !!userInfo?.reservation;
-  const date = userInfo?.reservation?.date?.split("T");
+  const run = useAsyncAction();
+  const { reservation } = useAppSelector(getAllReservationInfo);
+  const date = reservation?.date?.split("T");
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     Aos.init({ duration: 800 });
   }, []);
-  if (!userInfo) {
-    return <ProfileNotLogedMesComponent />;
-  }
+  useEffect(() => {
+    dispatch(gettingReserveTable());
+  }, []);
+
   return (
     <div className={styles.reserveDate}>
       <div className={styles.header}>
@@ -34,11 +39,11 @@ const ProfileReservation = () => {
         </p>
       </div>
       <div className={styles.reserveDateInfo}>
-        {isTrue ? (
+        {reservation ? (
           <div className={styles.reserveMainInfo}>
             <div className={styles.eachLine}>
               <p>Address:</p>
-              <p>{userInfo.reservation?.address}</p>
+              <p>{reservation?.address}</p>
             </div>
             <div className={styles.eachLine}>
               <p>Date:</p>
@@ -50,17 +55,24 @@ const ProfileReservation = () => {
             </div>
             <div className={styles.eachLine}>
               <p>Number of Guests:</p>
-              <p>{userInfo.reservation?.count} people</p>
+              <p>{reservation?.count} people</p>
             </div>
             <div className={styles.eachLine}>
               <p>Table Experience:</p>
-              <p>{userInfo.reservation?.tableType}</p>
+              <p>{reservation?.tableType}</p>
             </div>
             <div className={styles.eachLine}>
               <p>Reservation Status:</p>
               <p>Confirmed✅</p>
             </div>
-            <button onClick={() => dispatch(deletingReservationTime())}>
+            <button
+              onClick={() =>
+                run({
+                  action: () => dispatch(deletingReservationTime()).unwrap(),
+                  successMessage: (res) => res.message,
+                })
+              }
+            >
               Delete Reservation
             </button>
           </div>

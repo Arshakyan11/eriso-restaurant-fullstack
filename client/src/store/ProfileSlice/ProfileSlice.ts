@@ -39,9 +39,6 @@ const ProfileSlice = createSlice({
     setTypeofOldPassowrd: (state, action: PayloadAction<boolean>) => {
       state.isHideemOld = action.payload;
     },
-    setEmailManualy: (state, action: PayloadAction<string>) => {
-      state.initialValues.email = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(updatingProfileInformation.pending, (state) => {
@@ -60,6 +57,6 @@ const ProfileSlice = createSlice({
 });
 
 export default ProfileSlice.reducer;
-export const { setTypeOfChanginPass, setTypeofOldPassowrd, setEmailManualy } =
+export const { setTypeOfChanginPass, setTypeofOldPassowrd } =
   ProfileSlice.actions;
 export const getAllProfileInfo = (state: RootState) => state.profile;
