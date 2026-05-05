@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "aos/dist/aos.css";
 import styles from "./ContactUs.module.scss";
 import { ErrorMessage, Field, Form, Formik } from "formik";
