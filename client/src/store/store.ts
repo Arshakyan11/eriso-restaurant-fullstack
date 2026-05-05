@@ -9,7 +9,6 @@ import LoginReducer from "./LoginSlice/LoginSlice";
 import ReservationReducer from "./ReservationSlice/ReservationSlice";
 import ProfileReducer from "./ProfileSlice/ProfileSlice";
 import WishlistReducer from "./WishlistSlice/WishlistSlice";
-import MiniBuyingListReducer from "./MiniBuyingListSlice/MiniBuyingListSlice";
 import AuthenticationReducer from "./AuthSlice/AuthSlice";
 import {
   useDispatch,
@@ -28,7 +27,6 @@ const store = configureStore({
     reservation: ReservationReducer,
     profile: ProfileReducer,
     wishlist: WishlistReducer,
-    miniBuyingList: MiniBuyingListReducer,
     authentication: AuthenticationReducer,
   },
 });

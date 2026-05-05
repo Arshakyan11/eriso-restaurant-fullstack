@@ -7,20 +7,18 @@ import { Link } from "react-router-dom";
 import { burgerProfile } from "../../../components/Images";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import ProfileNotLogedMesComponent from "../../../components/ProfileNotLogedMesComponent/ProfileNotLogedMesComponent";
 import { ROUTES } from "../../../routes/Routes";
 import { useAsyncAction } from "../../../hooks/useAsyncAction";
 import { getallWatchlistInfo } from "../../../store/WishlistSlice/WishlistSlice";
+import MainLoader from "../../../components/MainLoader/MainLoader";
 const ProfileWishList = () => {
-  const { wishlist } = useAppSelector(getallWatchlistInfo);
+  const { wishlist, loading } = useAppSelector(getallWatchlistInfo);
   const dispatch = useAppDispatch();
   const run = useAsyncAction();
 
-  if (!wishlist) {
-    return <ProfileNotLogedMesComponent />;
-  }
   return (
     <div className={styles.wishListSec}>
+      <MainLoader isLoading={loading} />;
       <div className={styles.wishedItems}>
         {wishlist.length > 0 ? (
           <div className={styles.allWishedItemsOnly}>

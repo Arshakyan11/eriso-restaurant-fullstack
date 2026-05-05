@@ -84,18 +84,24 @@ export const editCountOfItemService = async (userID, itemID, action) => {
 
   if (action === "increment") {
     if (existingItem.count >= 10) {
-      return { message: "Maximum count is 10" };
+      return errorThrower("Maximum count is 10", 400);
     }
     existingItem.count += 1;
+    user.totalCheckPrice += existingItem.price;
   } else if (action === "decrement") {
     if (existingItem.count === 1) {
-      return { message: "Minimum Count is One" };
+      return errorThrower("Minimum Count is One", 400);
     }
     existingItem.count -= 1;
+    user.totalCheckPrice -= existingItem.price;
   } else {
     errorThrower("Invalid action", 400);
   }
   user.markModified("wishList");
   await user.save();
-  return { message: "Wishlist updated successfully" };
+  return {
+    message: "Wishlist updated successfully",
+    wishList: user.wishList,
+    totalCheckPrice: Number(user.totalCheckPrice.toFixed(3)),
+  };
 };

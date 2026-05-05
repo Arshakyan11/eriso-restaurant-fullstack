@@ -2,20 +2,20 @@ import { useEffect, useRef } from "react";
 import "./BuyingItemsList.scss";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
-import {
-  getAllMiniBuyingListInfo,
-  setModalOpenType,
-} from "../../store/MiniBuyingListSlice/MiniBuyingListSlice";
+
 import {
   changingCountOfItem,
   deleteWishListFromData,
 } from "../../store/api/api";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getallWatchlistInfo } from "../../store/WishlistSlice/WishlistSlice";
+import {
+  getallWatchlistInfo,
+  setModalOpenType,
+} from "../../store/WishlistSlice/WishlistSlice";
 import { useAsyncAction } from "../../hooks/useAsyncAction";
 const BuyingItemsList = () => {
   const dispatch = useAppDispatch();
-  const { isOpenModal } = useAppSelector(getAllMiniBuyingListInfo);
+  const { isOpenModal } = useAppSelector(getallWatchlistInfo);
   const { wishlist, totalCheckPrice } = useAppSelector(getallWatchlistInfo);
   const modalRef = useRef<HTMLDivElement>(null);
   const run = useAsyncAction();
@@ -42,6 +42,8 @@ const BuyingItemsList = () => {
   useEffect(() => {
     dispatch(setModalOpenType(false));
   }, [dispatch]);
+  console.log(wishlist);
+
   if (!wishlist) return null;
   return (
     <div className="allItems">
@@ -69,15 +71,19 @@ const BuyingItemsList = () => {
                           <p>{elm.price}$</p>
                           <div className="buttons">
                             <p
-                              onClick={() =>
-                                run({
+                              onClick={async () => {
+                                await run({
                                   action: () =>
                                     dispatch(
                                       deleteWishListFromData(elm.id),
                                     ).unwrap(),
                                   successMessage: (res) => res.message,
-                                })
-                              }
+                                }).then((res) => {
+                                  if (res?.wishList.length === 0) {
+                                    dispatch(setModalOpenType(false));
+                                  }
+                                });
+                              }}
                             >
                               <FaTrash />
                             </p>
@@ -129,7 +135,7 @@ const BuyingItemsList = () => {
             )}
             <div className="totalCount">
               <p>Total</p>
-              <p>{`${totalCheckPrice}$`}</p>
+              <p>{`${Number(totalCheckPrice.toFixed(3))}$`}</p>
             </div>
           </div>
         </div>

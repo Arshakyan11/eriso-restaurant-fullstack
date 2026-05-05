@@ -325,7 +325,7 @@ export const changingCountOfItem = createAsyncThunk<
   { mealId: string; type: string },
   { rejectValue: string; dispatch: AppDispatch }
 >(
-  "miniBuyingList/changingCountOfItem",
+  "wishlist/changingCountOfItem",
   async ({ mealId, type }, { rejectWithValue }) => {
     try {
       const result = await editCountOfItemApi(mealId, type);
