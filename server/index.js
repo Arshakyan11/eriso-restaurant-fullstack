@@ -37,11 +37,10 @@ app.use((err, req, res, next) => {
 const runServer = async () => {
   try {
     const PORT = process.env.PORT || 8000;
-    const HOST = process.env.HOST;
     await mongoose.connect(process.env.MONGO_URL);
     console.log(`CONNECTED TO MONGODB`);
-    app.listen(PORT, HOST, () => {
-      console.log(`SERVER CONNECTED SUCCESSFULLY \nhttp://${HOST}:${PORT}`);
+    app.listen(PORT, () => {
+      console.log(`Server running on ${PORT}`);
     });
   } catch (error) {
     console.log(`Connection Rejected , Please try again later`);
