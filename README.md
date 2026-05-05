@@ -153,7 +153,7 @@ The frontend is deployed on Netlify:
 
 https://eriso-restaurant.netlify.app/
 
-The backend can be deployed on platforms such as Render or Railway. After deployment, update the frontend environment variable `VITE_BACKEND_LINK` with the production API URL.
+The backend is deployed on Netlify:
 
 ---
 
