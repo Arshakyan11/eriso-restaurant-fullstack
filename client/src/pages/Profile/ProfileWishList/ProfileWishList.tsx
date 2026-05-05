@@ -11,6 +11,7 @@ import { ROUTES } from "../../../routes/Routes";
 import { useAsyncAction } from "../../../hooks/useAsyncAction";
 import { getallWatchlistInfo } from "../../../store/WishlistSlice/WishlistSlice";
 import MainLoader from "../../../components/MainLoader/MainLoader";
+import { notifyForError } from "../../../helpers/notifyUser";
 const ProfileWishList = () => {
   const { wishlist, loading } = useAppSelector(getallWatchlistInfo);
   const dispatch = useAppDispatch();
@@ -46,32 +47,28 @@ const ProfileWishList = () => {
                       </p>
                       <p
                         onClick={() =>
-                          run({
-                            action: () =>
-                              dispatch(
-                                changingCountOfItem({
-                                  mealId: elm.id,
-                                  type: "decrement",
-                                }),
-                              ).unwrap(),
-                            successMessage: (res) => res.message,
-                          })
+                          dispatch(
+                            changingCountOfItem({
+                              mealId: elm.id,
+                              type: "decrement",
+                            }),
+                          )
+                            .unwrap()
+                            .catch((res) => notifyForError(res))
                         }
                       >
                         <FaMinus />
                       </p>
                       <p
                         onClick={() =>
-                          run({
-                            action: () =>
-                              dispatch(
-                                changingCountOfItem({
-                                  mealId: elm.id,
-                                  type: "increment",
-                                }),
-                              ).unwrap(),
-                            successMessage: (res) => res.message,
-                          })
+                          dispatch(
+                            changingCountOfItem({
+                              mealId: elm.id,
+                              type: "increment",
+                            }),
+                          )
+                            .unwrap()
+                            .catch((res) => notifyForError(res))
                         }
                       >
                         <FaPlus />

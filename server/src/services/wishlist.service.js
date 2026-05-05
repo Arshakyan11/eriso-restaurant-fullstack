@@ -56,7 +56,7 @@ export const deleteWishlistItemService = async (userID, itemID) => {
     errorThrower("Item not found", 404);
   }
   user.wishList = user.wishList.filter((item) => item.id !== itemID);
-  user.totalCheckPrice -= existingItem.price;
+  user.totalCheckPrice -= existingItem.price * existingItem.count;
   await user.save();
   return {
     message: "Item removed from wishlist",

@@ -23,18 +23,8 @@ import {
   Staff,
 } from "./pages";
 import ProtectedRoute from "./helpers/ProtectedRoute";
-import { useEffect } from "react";
-import { isTokenValid } from "./helpers/checkToken";
-import { useAppDispatch } from "./store/store";
-import { getWishlistThunk } from "./store/api/api";
+
 function App() {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    const checking = isTokenValid();
-    if (checking) {
-      dispatch(getWishlistThunk());
-    }
-  }, []);
   return (
     <div>
       <ScrollToTop />

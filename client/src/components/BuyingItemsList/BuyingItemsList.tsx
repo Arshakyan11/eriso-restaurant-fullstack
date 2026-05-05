@@ -6,6 +6,7 @@ import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import {
   changingCountOfItem,
   deleteWishListFromData,
+  getWishlistThunk,
 } from "../../store/api/api";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
@@ -13,6 +14,8 @@ import {
   setModalOpenType,
 } from "../../store/WishlistSlice/WishlistSlice";
 import { useAsyncAction } from "../../hooks/useAsyncAction";
+import { notifyForError } from "../../helpers/notifyUser";
+import { isTokenValid } from "../../helpers/checkToken";
 const BuyingItemsList = () => {
   const dispatch = useAppDispatch();
   const { isOpenModal } = useAppSelector(getallWatchlistInfo);
@@ -42,7 +45,12 @@ const BuyingItemsList = () => {
   useEffect(() => {
     dispatch(setModalOpenType(false));
   }, [dispatch]);
-  console.log(wishlist);
+
+  useEffect(() => {
+    if (isOpenModal && isTokenValid()) {
+      dispatch(getWishlistThunk());
+    }
+  }, [isOpenModal]);
 
   if (!wishlist) return null;
   return (
@@ -89,32 +97,28 @@ const BuyingItemsList = () => {
                             </p>
                             <p
                               onClick={() =>
-                                run({
-                                  action: () =>
-                                    dispatch(
-                                      changingCountOfItem({
-                                        mealId: elm.id,
-                                        type: "decrement",
-                                      }),
-                                    ).unwrap(),
-                                  successMessage: (res) => res.message,
-                                })
+                                dispatch(
+                                  changingCountOfItem({
+                                    mealId: elm.id,
+                                    type: "decrement",
+                                  }),
+                                )
+                                  .unwrap()
+                                  .catch((res) => notifyForError(res))
                               }
                             >
                               <FaMinus />
                             </p>
                             <p
                               onClick={() =>
-                                run({
-                                  action: () =>
-                                    dispatch(
-                                      changingCountOfItem({
-                                        mealId: elm.id,
-                                        type: "increment",
-                                      }),
-                                    ).unwrap(),
-                                  successMessage: (res) => res.message,
-                                })
+                                dispatch(
+                                  changingCountOfItem({
+                                    mealId: elm.id,
+                                    type: "increment",
+                                  }),
+                                )
+                                  .unwrap()
+                                  .catch((res) => notifyForError(res))
                               }
                             >
                               <FaPlus />
