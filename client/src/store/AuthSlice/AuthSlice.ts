@@ -29,11 +29,12 @@ const AuthSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.userInfo = action.payload;
+      localStorage.setItem("userInfo", JSON.stringify(action.payload));
     });
     builder.addCase(fetchCurrentUser.rejected, (state, action) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.error = action.payload ?? "Something Went Wrong!!";
     });
   },

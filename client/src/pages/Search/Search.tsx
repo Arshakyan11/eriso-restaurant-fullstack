@@ -10,13 +10,14 @@ import Aos from "aos";
 import { notifyForError } from "../../helpers/notifyUser";
 import { sendingWatchList, sendWishListData } from "../../helpers/sendData";
 import BuyingItemsList from "../../components/BuyingItemsList/BuyingItemsList";
-import { getLocalUserStrict } from "../../store/api/api";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { ROUTES } from "../../routes/Routes";
+import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
 const Search = () => {
   const dispatch = useAppDispatch();
   const { foundedData, loading } = useAppSelector(gettAllDataSearching);
-  const userInfo = getLocalUserStrict();
+  const { userInfo } = useAppSelector(getUserInfo);
+
   useEffect(() => {
     Aos.init({ duration: 800 });
   }, []);
@@ -96,7 +97,7 @@ const Search = () => {
                                   calories: each.calories,
                                   image: each.image,
                                   count: 1,
-                                })
+                                }),
                               );
                             }}
                           >

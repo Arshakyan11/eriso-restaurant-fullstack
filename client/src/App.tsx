@@ -23,8 +23,18 @@ import {
   Staff,
 } from "./pages";
 import ProtectedRoute from "./helpers/ProtectedRoute";
+import { useEffect } from "react";
+import { fetchCurrentUser } from "./store/api/api";
+import { useAppDispatch } from "./store/store";
+import { isTokenValid } from "./helpers/checkToken";
 
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (isTokenValid()) {
+      dispatch(fetchCurrentUser());
+    }
+  }, []);
   return (
     <div>
       <ScrollToTop />

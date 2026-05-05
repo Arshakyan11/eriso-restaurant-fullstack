@@ -10,16 +10,16 @@ import LineInfo from "../../components/LineInfo/LineInfo";
 import { restInfo1, restInfo2, restInfo3 } from "../../components/Images";
 import Aos from "aos";
 import { getCurrentTime } from "../../helpers/createTime";
-import { getLocalUserStrict } from "../../store/api/api";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { ROUTES } from "../../routes/Routes";
+import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
 const Reservation = () => {
   useEffect(() => {
     Aos.init({ duration: 800 });
   }, []);
   const dispatch = useAppDispatch();
   const { initialValues } = useAppSelector(getAllReservationInfo);
-  const userInfo = getLocalUserStrict();
+  const {userInfo} = useAppSelector(getUserInfo);
   return (
     <section className={styles.resSec}>
       <div className={styles.container}>

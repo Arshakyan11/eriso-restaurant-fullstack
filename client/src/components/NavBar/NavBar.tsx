@@ -11,8 +11,9 @@ import {
 import { FaAddressCard, FaBars, FaUser } from "react-icons/fa";
 import { FaRightToBracket } from "react-icons/fa6";
 import { LogOutFromAccount } from "../../helpers/logOut";
-import { getLocalUserStrict } from "../../store/api/api";
 import { ROUTES } from "../../routes/Routes";
+import { useAppSelector } from "../../store/store";
+import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
 
 const NavBar = () => {
   const dropDownRef = useRef<HTMLLIElement>(null);
@@ -30,7 +31,7 @@ const NavBar = () => {
     setIsDropDownOpenBottom(!isDropDownOpenBottom);
   };
 
-  const userInfo = getLocalUserStrict();
+  const { userInfo } = useAppSelector(getUserInfo);
   useEffect(() => {
     const handleScreenSize = () => setScreenWidth(window.innerWidth);
     window.addEventListener("resize", handleScreenSize);
