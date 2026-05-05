@@ -9,18 +9,24 @@ import {
 import { updateDataOnProfile } from "../../helpers/sendData";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
 const Profile = () => {
   const dispatch = useAppDispatch();
-  const { initialValues, isHiden, isHideemOld } =
-    useAppSelector(getAllProfileInfo);
-
+  const { isHiden, isHiddenOld } = useAppSelector(getAllProfileInfo);
+  const { userInfo } = useAppSelector(getUserInfo);
   return (
     <div className={styles.profileSec}>
       <div className={styles.mainProfileSec}>
         <h2>Do You Want to change your passowrd?</h2>
         <Formik
           validationSchema={userDataEditing}
-          initialValues={initialValues}
+          enableReinitialize
+          initialValues={{
+            email: userInfo?.email || "",
+            password: "",
+            newPassword: "",
+            newPasswordRepeat: "",
+          }}
           onSubmit={(e, form) =>
             updateDataOnProfile(
               {
@@ -38,7 +44,12 @@ const Profile = () => {
               <legend>
                 <ErrorMessage name="email" component="div" />
               </legend>
-              <Field name="email" placeholder="Your Email" type="text" />
+              <Field
+                name="email"
+                placeholder="Your Email"
+                type="text"
+                readOnly
+              />
             </fieldset>
             <fieldset>
               <legend>
@@ -47,13 +58,13 @@ const Profile = () => {
               <Field
                 name="password"
                 placeholder="Your Last Password"
-                type={isHideemOld ? "password" : "text"}
+                type={isHiddenOld ? "password" : "text"}
               />
               <p
                 className={styles.seePassIcon}
-                onClick={() => dispatch(setTypeofOldPassowrd(!isHideemOld))}
+                onClick={() => dispatch(setTypeofOldPassowrd(!isHiddenOld))}
               >
-                {isHideemOld ? <FaEye /> : <FaEyeSlash />}
+                {isHiddenOld ? <FaEye /> : <FaEyeSlash />}
               </p>
             </fieldset>
             <fieldset>
