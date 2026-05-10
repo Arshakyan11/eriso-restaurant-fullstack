@@ -7,7 +7,7 @@ export const applimiter = rateLimit({
 });
 export const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5,
+  max: 20,
   message: "Too many login attempts, try again later",
 });
 

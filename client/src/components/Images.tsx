@@ -19,13 +19,13 @@ import starRating from "../assets/images/defaultImages/star.png";
 import reserveImg1 from "../assets/images/defaultImages/reserve1.png";
 import reserveImg2 from "../assets/images/defaultImages/reserve2.png";
 import reserveImg3 from "../assets/images/defaultImages/reserve3.png";
-import chiefImg1 from "../assets/images/chiefsImage/chief1.png";
+import chiefImg1 from "../assets/images/chiefsImage/chief1.webp";
 import chiefImg2 from "../assets/images/chiefsImage/chief2.png";
-import chiefImg3 from "../assets/images/chiefsImage/chief3.png";
+import chiefImg3 from "../assets/images/chiefsImage/chief3.webp";
 import chiefImg4 from "../assets/images/chiefsImage/chief4.jpg";
 import chiefImg5 from "../assets/images/chiefsImage/chief5.jpg";
-import chiefImg6 from "../assets/images/chiefsImage/chief6.png";
-import chiefImg7 from "../assets/images/chiefsImage/chief7.jpg";
+import chiefImg6 from "../assets/images/chiefsImage/chief6.webp";
+import chiefImg7 from "../assets/images/chiefsImage/chief7.webp";
 import chiefImg8 from "../assets/images/chiefsImage/chief8.webp";
 import chiefImg9 from "../assets/images/chiefsImage/chief9.webp";
 import chiefImg10 from "../assets/images/chiefsImage/chief10.avif";
@@ -54,7 +54,7 @@ import tokyoRestImg1 from "../assets/images/tokyoRestaurant/tokyo1.jpg";
 import tokyoRestImg2 from "../assets/images/tokyoRestaurant/tokyo2.jpg";
 import tokyoRestImg3 from "../assets/images/tokyoRestaurant/tokyo3.jpg";
 import tokyoRestImg4 from "../assets/images/tokyoRestaurant/tokyo4.webp";
-import regImg from "../assets/images/defaultImages/registration.png";
+import regImg from "../assets/images/defaultImages/registration.webp";
 import regImgMobile from "../assets/images/defaultImages/restaurantImageRegMobile.jpg";
 import loginPic from "../assets/images/defaultImages/loginP.jpg";
 import loginPic2 from "../assets/images/defaultImages/loginPic.jpg";
@@ -62,7 +62,7 @@ import restInfo1 from "../assets/images/defaultImages/restaurantInfo1.png";
 import restInfo2 from "../assets/images/defaultImages/restaurantInfo2.png";
 import restInfo3 from "../assets/images/defaultImages/restaurantInfo3.png";
 import reserveDate from "../assets/images/defaultImages/reserveDate.png";
-import burgerProfile from "../assets/images/defaultImages/burgerProfile.png";
+import burgerProfile from "../assets/images/defaultImages/burgerProfile.webp";
 export {
   logo,
   logo1,
