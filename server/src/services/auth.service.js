@@ -33,13 +33,13 @@ export const login = async (data) => {
   const existingUser = await User.findOne({ email });
 
   if (!existingUser) {
-    errorThrower("Email or Password is wrong");
+    errorThrower("Email or Password is wrong", 401);
   }
 
   const isMatch = await bcrypt.compare(password, existingUser.password);
 
   if (!isMatch) {
-    errorThrower("Email or Password is wrong");
+    errorThrower("Email or Password is wrong", 401);
   }
 
   const token = jwt.sign(
