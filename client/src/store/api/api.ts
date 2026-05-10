@@ -167,10 +167,14 @@ export const registerUser = createAsyncThunk<
   try {
     await registerUserApi(data);
     return "Account Registered Successfuly";
-  } catch (error) {
-    return rejectWithValue(
-      extractErrorMessage(error, "Cant Add User to list, PLs try again later"),
-    );
+  } catch (error: any) {
+    if (!error.response) {
+      return rejectWithValue(
+        "Server is waking up, please wait a few seconds and try again.",
+      );
+    }
+
+    return rejectWithValue(extractErrorMessage(error, "Registration failed"));
   }
 });
 
@@ -183,8 +187,14 @@ export const loginUser = createAsyncThunk<
     const res = await loginUserApi(data);
     // dispatch(setUserInfo(lastResult));
     return res;
-  } catch (error) {
-    return rejectWithValue(extractErrorMessage(error, "User not found!!!"));
+  } catch (error: any) {
+    if (!error.response) {
+      return rejectWithValue(
+        "Server is waking up, please wait a few seconds and try again.",
+      );
+    }
+
+    return rejectWithValue(extractErrorMessage(error, "Login failed"));
   }
 });
 
