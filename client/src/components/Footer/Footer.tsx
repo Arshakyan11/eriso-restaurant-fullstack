@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../../store/store";
 import { ROUTES } from "../../routes/Routes";
 import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
+import { isTokenValid } from "../../helpers/checkToken";
 const Footer = () => {
   const { userInfo } = useAppSelector(getUserInfo);
   return (
@@ -68,7 +69,7 @@ const Footer = () => {
             </div>
             <div className="secondLine">
               <h2>Account</h2>
-              {userInfo ? (
+              {userInfo && isTokenValid() ? (
                 <>
                   <NavLink to={ROUTES.PROFILE}>Profile</NavLink>
                   <NavLink to={`/profile/${ROUTES.PROFILERESERVEDATE}`}>

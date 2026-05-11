@@ -14,6 +14,7 @@ import { LogOutFromAccount } from "../../helpers/logOut";
 import { ROUTES } from "../../routes/Routes";
 import { useAppSelector } from "../../store/store";
 import { getUserInfo } from "../../store/AuthSlice/AuthSlice";
+import { isTokenValid } from "../../helpers/checkToken";
 
 const NavBar = () => {
   const dropDownRef = useRef<HTMLLIElement>(null);
@@ -107,7 +108,7 @@ const NavBar = () => {
               </ul>
             </div>
             <div className="right">
-              {userInfo ? (
+              {userInfo && isTokenValid() ? (
                 <>
                   <Link to={ROUTES.PROFILE}>
                     <FaUser />
@@ -142,7 +143,7 @@ const NavBar = () => {
           {screenWidth < 1085 && isOpen && (
             <div className="bottomNavSection">
               <div className="right">
-                {userInfo ? (
+                {userInfo && isTokenValid() ? (
                   <>
                     <Link to={ROUTES.PROFILE}>
                       <FaUser className="newUserSvg" />
