@@ -9,7 +9,6 @@ import "swiper/css/pagination";
 import "swiper/css/thumbs";
 import "./RestaurantSlider.scss";
 import type { Swiper as SwiperType } from "swiper";
-import ImageWithSkeleton from "../ImageWithSkeleton/ImageWithSkeleton";
 interface RestaurantSliderType {
   imagesArr: [string, string, string, string];
 }
@@ -34,7 +33,7 @@ const RestaurantSlider = ({ imagesArr }: RestaurantSliderType) => {
           {imagesArr.map((elm, ind) => {
             return (
               <SwiperSlide key={ind}>
-                <ImageWithSkeleton src={elm} alt="img" />
+                <img src={elm} alt="img" />
               </SwiperSlide>
             );
           })}
