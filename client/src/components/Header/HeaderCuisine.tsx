@@ -52,7 +52,7 @@ const HeaderCuisine = () => {
                 <p className="aboutCousine">{elm.info}</p>
               </div>
               <div className="rightSide">
-                <img src={elm.img} alt="restaurant Img" loading="lazy" />
+                <img src={elm.img} alt="restaurant Img" />
                 <p className="aboutCousineMedia">{elm.info}</p>
               </div>
             </SwiperSlide>
