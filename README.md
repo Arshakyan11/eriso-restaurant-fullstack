@@ -9,6 +9,11 @@ It is designed with a clear separation between frontend and backend, focusing on
 
 ---
 
+## Live Demo
+
+- Frontend: https://eriso-restaurant.netlify.app
+- Backend API: https://eriso-restaurant-fullstack.onrender.com
+
 ## Features
 
 - User registration and authentication using JWT
@@ -144,16 +149,6 @@ Protected endpoints require the following header:
 ```
 Authorization: Bearer <token>
 ```
-
----
-
-## Deployment
-
-The frontend is deployed on Netlify:
-
-https://eriso-restaurant.netlify.app/
-
-The backend is deployed on Netlify:
 
 ---
 
