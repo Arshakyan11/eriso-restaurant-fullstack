@@ -23,6 +23,13 @@ app.use("/auth/signup", signupLimiter);
 
 app.use(applimiter);
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    message: "Server is running",
+  });
+});
+
 app.use("/auth", userRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/reservation", reservationRoute);

@@ -22,8 +22,13 @@ const Home = () => {
     <div className={styles.homeSection}>
       <div className={styles.container}>
         <div className={styles.homeBox}>
+          <div className={styles.serverInfo}>
+            ⚡ Demo Notice: The backend is hosted on Render's free tier. The
+            first authentication request may take up to 60 seconds after
+            inactivity.
+          </div>
           <HeaderCuisine />
-          <div className={styles.welcomeSec} data-aos="fade-up">
+          <div className={styles.welcomeSec}>
             <div className={styles.leftSide}>
               <img src={welcomeImg} alt="welcomeImg" />
               <p className={styles.welcomeText}>

@@ -34,6 +34,7 @@ function App() {
     if (isTokenValid()) {
       dispatch(fetchCurrentUser());
     }
+    fetch(`${import.meta.env.VITE_BACKEND_LINK}/`).catch(() => {});
   }, []);
   return (
     <div>
