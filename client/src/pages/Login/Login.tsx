@@ -14,7 +14,8 @@ import { ROUTES } from "../../routes/Routes";
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate: NavigateFunction = useNavigate();
-  const { isHidenPASS, initialValues } = useAppSelector(getAllLoginInfo);
+  const { isHidenPASS, initialValues, loading } =
+    useAppSelector(getAllLoginInfo);
 
   return (
     <section className={styles.navBox}>
@@ -69,7 +70,9 @@ const Login = () => {
                   </p>
                 </fieldset>
                 <div className={styles.buttons}>
-                  <button type="submit">Login</button>
+                  <button type="submit" disabled={loading}>
+                    {loading ? "Connecting to server..." : "Login"}
+                  </button>
                   <button type="reset">Reset</button>
                 </div>
               </Form>

@@ -92,7 +92,9 @@ const Registration = () => {
                   </p>
                 </fieldset>
                 <div className={styles.buttons}>
-                  <button type="submit">Submit</button>
+                  <button type="submit" disabled={loading}>
+                    {loading ? "Connecting to server..." : "Register"}
+                  </button>
                   <button type="reset">Cancel</button>
                 </div>
               </Form>
